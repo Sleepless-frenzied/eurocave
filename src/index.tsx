@@ -1,17 +1,42 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Error404 from "./pages/404";
+import Layout from './components/Layout';
+import Home from "./pages/Home";
+
+import './i18n'
+
+
+
+const loadingMarkup = (
+    <div className="animate-ping text-8xl py-4 text-center">
+        <p>Loading...</p>
+    </div>
+)
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <BrowserRouter>
+        <React.StrictMode>
+            <Suspense fallback={loadingMarkup}>
+                <div className={"text-white  transition-all duration-500"}>
+                    <Layout>
+                        <Routes>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="*" element={<Error404/>}/>
+                        </Routes>
+                    </Layout>
+                </div>
+            </Suspense>
+        </React.StrictMode>
+    </BrowserRouter>
+
 );
 
 // If you want your app to work offline and load faster, you can change

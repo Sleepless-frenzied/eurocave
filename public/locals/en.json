@@ -1,0 +1,29 @@
+{
+  "app_title": "Title",
+  "welcome": "Welcome to React",
+  "service": "Service",
+  "about": "About",
+  "contact": "Contact",
+
+  "your_cellar_is": "Your cellar is",
+  "aboveground": "Aboveground",
+  "semi_buried": "Semi-Buried",
+  "buried": "Buried",
+
+  "desired_temperature": "Desired temperature",
+
+  "your_floor_settings": "Your floor settings",
+  "thickness": "Thickness",
+  "your_ceiling_settings": "Your ceiling settings",
+  "part_height": "Part height",
+  "material": "Material",
+  "expanded_polystyrene": "Expanded polystyrene",
+  "extruded_polystyrene": "Extruded polystyrene",
+  "Polystyrene": "Polyurethane",
+  "concrete_only": "Concrete only",
+  "brick_only": "Brick only",
+  "clay": "Clay",
+
+
+  "define_windows": "Define the windows"
+}

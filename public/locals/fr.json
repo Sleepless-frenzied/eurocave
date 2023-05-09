@@ -1,0 +1,29 @@
+{
+  "app_title": "Title",
+  "welcome": "Bienvenue sur React",
+  "service": "service",
+  "about": "À propos",
+  "contact": "Contact",
+
+  "your_cellar_is": "Votre cave est",
+  "aboveground": "Hors sol",
+  "semi_buried": "Semi-enterrée",
+  "buried": "Enterrée",
+
+  "desired_temperature": "Température souhaitée",
+
+  "your_floor_settings": "Paramètres de votre sol",
+  "thickness": "Épaisseur",
+  "your_ceiling_settings": "Paramètres de votre plafond",
+  "part_height": "Hauteur pièce",
+  "material": "Matériau",
+  "expanded_polystyrene": "Polystyrene expensé",
+  "extruded_polystyrene": "Polystyrene éxtrudé",
+  "Polystyrene": "Polyurethane",
+  "concrete_only": "Béton seul",
+  "brick_only": "Brique seule",
+  "clay": "Terre battue",
+
+
+  "define_windows": "Définir les fenêtres"
+}

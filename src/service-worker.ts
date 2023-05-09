@@ -63,7 +63,7 @@ registerRoute(
     cacheName: 'images',
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used images are removed.
+      // least-recently used img are removed.
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
   })
