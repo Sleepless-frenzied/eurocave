@@ -1,5 +1,6 @@
 {
   "name": "eurocave",
+  "homepage": "https://lagence3d.com/products/eurocave/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
