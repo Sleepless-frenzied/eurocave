@@ -5,6 +5,17 @@
   "about": "About",
   "contact": "Contact",
 
+  "wall": "Wall",
+  "win": "Window",
+
+  "length": "Length",
+  "width": "Width",
+  "thickness": "Thickness",
+  "material": "Material",
+  "mat_thickness": "Material thickness",
+  "insulation": "Insulation",
+  "ins_thickness": "Insulation thickness",
+
   "your_cellar_is": "Your cellar is",
   "aboveground": "Aboveground",
   "semi_buried": "Semi-Buried",
@@ -13,7 +24,7 @@
   "desired_temperature": "Desired temperature",
 
   "your_floor_settings": "Your floor settings",
-  "thickness": "Thickness",
+
   "your_ceiling_settings": "Your ceiling settings",
   "part_height": "Part height",
   "material": "Material",
@@ -25,5 +36,9 @@
   "clay": "Clay",
 
 
-  "define_windows": "Define the windows"
+
+  "add_wall": "Add wall",
+  "define_windows": "Define the windows",
+
+  "made_with": "Made with"
 }

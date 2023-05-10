@@ -5,6 +5,18 @@
   "about": "À propos",
   "contact": "Contact",
 
+  "wall": "Mur",
+  "win": "Fenêtre",
+
+
+  "length": "Longueur",
+  "width": "Largeur",
+  "thickness": "Épaisseur",
+  "material": "Matériel",
+  "mat_thickness": "Épaisseur Matériel",
+  "insulation": "Isolation",
+  "ins_thickness": "Épaisseur isolation",
+
   "your_cellar_is": "Votre cave est",
   "aboveground": "Hors sol",
   "semi_buried": "Semi-enterrée",
@@ -13,7 +25,7 @@
   "desired_temperature": "Température souhaitée",
 
   "your_floor_settings": "Paramètres de votre sol",
-  "thickness": "Épaisseur",
+
   "your_ceiling_settings": "Paramètres de votre plafond",
   "part_height": "Hauteur pièce",
   "material": "Matériau",
@@ -25,5 +37,10 @@
   "clay": "Terre battue",
 
 
-  "define_windows": "Définir les fenêtres"
+  "add_wall": "Ajouter des murs",
+  "define_windows": "Définir les fenêtres",
+
+  "made_with": "Fait avec "
+
+
 }

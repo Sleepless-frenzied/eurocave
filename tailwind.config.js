@@ -12,8 +12,9 @@ module.exports = {
         'light': '#f1f2f4',
         'lightNav':"#fdfdfe",
         'lightTxt':'#000000',
-        'lightButton':'#e2e4e7',
-        'lightModule':'#fdfdfe',
+        'lightButton':'#868686',
+        'lightModule':'#dadada',
+        'lightInfo':'#c9c9c9',
         'lightDivi':'#d6d8db',
         'lightHR':'#413b3b',
 
@@ -22,9 +23,10 @@ module.exports = {
         'dark':'#282a2e',
         'darkNav':"#070707",
         'darkTxt':'#ffffff',
-        'darkButton':'#2b2d31',
+        'darkButton':'#1f2023',
         'darkModule':'#313338',
-        'darkDivi':'#3b3d44',
+        'darkInfo':'#494c54',
+        'darkDivi':'#2c59e8',
         'darkHR':'#1677ff'
 
       },

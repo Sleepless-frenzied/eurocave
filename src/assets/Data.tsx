@@ -51,7 +51,7 @@ export type Floor = {
 export type Wall = {
     info: Info;
     windows: Window[];
-}
+};
 
 export type Window = {
     info: Info;

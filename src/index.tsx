@@ -22,7 +22,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter basename={'/products/eurocave/'}>
+    <BrowserRouter >
         <React.StrictMode>
             <Suspense fallback={loadingMarkup}>
                 <div className={"text-white  transition-all duration-500"}>
