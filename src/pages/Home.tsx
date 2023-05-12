@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
 
-import {Room, Wall, Ceiling, Floor, floorMaterial, Info,Window} from "../assets/Data";
+import {Room, Wall, Ceiling, Floor, floorMaterial, Info, Window, insMaterial, wallMaterial} from "../assets/Data";
 import {BsPlusCircle} from "react-icons/bs";
 
 
@@ -95,9 +95,10 @@ function Home() {
                 ...prevRoom.walls,
                 {
                     info: {
-                        length: 10,
+                        height: 10,
+                        length:0,
                         width: 10,
-                        thickness: 10,
+                        thickness: 0,
                         mat: "expanded_polystyrene" ,
                         matThick: 10,
                         insMat: "expanded_polystyrene",
@@ -117,9 +118,10 @@ function Home() {
             const windows = [...walls[wallIndex].windows];
             windows.push({
                 info: {
-                    length: 10,
+                    height: 10,
+                    length:0,
                     width: 10,
-                    thickness: 10,
+                    thickness: 0,
                     mat: "expanded_polystyrene" ,
                     matThick: 10,
                     insMat: "expanded_polystyrene",
@@ -165,14 +167,14 @@ function Home() {
 
                             <tr >
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <h1 className={"mx-2 overflow-clip"}>{t("length")}:</h1>
+                                    <h1 className={"mx-2 overflow-clip"}>{t("height")}:</h1>
                                 </td>
                                 <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                     <input
                                         className={" px-2 text-black w-full" }
                                         type="number"
-                                        name="length"
-                                        value={wall[wallIndex-1].info.length}
+                                        name="height"
+                                        value={wall[wallIndex-1].info.height}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
                                     />
                                 </td>
@@ -201,16 +203,21 @@ function Home() {
 
                             <tr >
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <h1 className={"mx-2 overflow-clip"}>{t("thickness")}:</h1>
+                                    <h1 className={"mx-2 overflow-clip"}>{t("material")}:</h1>
                                 </td>
                                 <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
-                                    <input
-                                        className={" px-2 text-black w-full" }
-                                        type="number"
-                                        name="thickness"
-                                        value={wall[wallIndex-1].info.thickness}
+                                    <select
+                                        className={"text-black max-sm:h-12 w-full"}
+                                        name="mat"
+                                        value={room.walls[wallIndex-1].info.mat}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
-                                    />
+                                    >
+                                        {wallMaterial.map((material, index) => (
+                                            <option key={index} value={material.name} >
+                                                {t(material.name)}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </td>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                     <span className={"px-2 flex justify-center"}>mm</span>
@@ -237,6 +244,29 @@ function Home() {
 
                             <tr >
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                    <h1 className={"mx-2 overflow-clip"}>{t("insulation")}:</h1>
+                                </td>
+                                <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
+                                    <select
+                                        className={"text-black max-sm:h-12 w-full"}
+                                        name="mat"
+                                        value={room.walls[wallIndex-1].info.insMat}
+                                        onChange={(e) => handleWallInfoChange(wallIndex, e)}
+                                    >
+                                        {insMaterial.map((insMaterial, index) => (
+                                            <option key={index} value={insMaterial.name} >
+                                                {t(insMaterial.name)}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </td>
+                                <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                    <span className={"px-2 flex justify-center"}>mm</span>
+                                </td>
+                            </tr>
+
+                            <tr >
+                                <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                     <h1 className={"mx-2 overflow-clip"}>{t("mat_thickness")}:</h1>
                                 </td>
                                 <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
@@ -253,28 +283,7 @@ function Home() {
                                 </td>
                             </tr>
 
-                            <tr >
-                                <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <h1 className={"mx-2 overflow-clip"}>{t("material")}:</h1>
-                                </td>
-                                <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
-                                    <select
-                                        className={"text-black max-sm:h-12 w-full"}
-                                        name="mat"
-                                        value={room.walls[wallIndex-1].info.mat}
-                                        onChange={(e) => handleWallInfoChange(wallIndex, e)}
-                                    >
-                                        {floorMaterial.map((material, index) => (
-                                            <option key={index} value={material.name} >
-                                                {t(material.name)}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                                <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <span className={"px-2 flex justify-center"}>mm</span>
-                                </td>
-                            </tr>
+
 
 
 
@@ -299,7 +308,7 @@ function Home() {
 
                                     <tr >
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                            <h1 className={"mx-2 overflow-clip"}>{t("length")}:</h1>
+                                            <h1 className={"mx-2 overflow-clip"}>{t("height")}:</h1>
                                         </td>
                                         <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                             <input
@@ -307,7 +316,7 @@ function Home() {
                                                 type="number"
                                                 name="length"
 
-                                                value={curWall.windows[curWall.windows.length-1].info.length}
+                                                value={curWall.windows[curWall.windows.length-1].info.height}
                                                 onChange={(e) =>handleWindowInfoChange(wallIndex, curWall.windows.length-1, e)}
                                             />
                                         </td>
@@ -449,7 +458,7 @@ function Home() {
                             <div className={"m-2 p-2 h-1/4 bg-lightInfo dark:bg-darkInfo columns-2"}>
                                 <p className={"text-2xl"}>Wall {index+1}</p>
                                 <p>
-                                    {t("length")}: {wall.info.length}
+                                    {t("height")}: {wall.info.height}
                                     <br/>
                                     {t("width")}: {wall.info.width}
                                     <br/>

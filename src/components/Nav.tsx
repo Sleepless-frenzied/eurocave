@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import useDarkMode from "./ButtonTheme";
 import {GiSun, GiWineBottle} from "react-icons/gi";
-import {RxMoon} from "react-icons/rx";
+import {RxHamburgerMenu, RxMoon, RxCross1} from "react-icons/rx";
 
 
 
@@ -37,9 +37,9 @@ const Nav = () => {
                 </div>
 
 
-                <div onClick={()=>setOpen(!open)} className=' dark:invert-0 invert text-3xl absolute right-8 top-6 cursor-pointer md:hidden'>
+                <div onClick={()=>setOpen(!open)} className=' dark:invert-0 invert text-3xl absolute right-8 top-3.5 cursor-pointer md:hidden'>
                     {
-                        open?<GiSun/>:<GiSun/>
+                        open?<RxCross1 className={""}/>:<RxHamburgerMenu className={""}/>
                     }
                 </div>
 
@@ -56,8 +56,8 @@ const Nav = () => {
                         <div onClick={()=> setTheme(colorTheme)} className={" flex items-center justify-center"}>
 
                             {colorTheme === 'light'?
-                                (<RxMoon size={32}/>) :
-                                (<GiSun size={32}/>)}
+                                (<RxMoon size={32} className={"m-1"}/>) :
+                                (<GiSun size={32} className={"m-1"}/>)}
 
                         </div>
                     </div>

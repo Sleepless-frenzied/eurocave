@@ -28,13 +28,44 @@
 
   "your_ceiling_settings": "Paramètres de votre plafond",
   "part_height": "Hauteur pièce",
-  "material": "Matériau",
   "expanded_polystyrene": "Polystyrene expensé",
   "extruded_polystyrene": "Polystyrene éxtrudé",
   "Polystyrene": "Polyurethane",
   "concrete_only": "Béton seul",
   "brick_only": "Brique seule",
   "clay": "Terre battue",
+
+  "bA13_(gypsum_board)":"BA13 (placoplatre)",
+  "concrete":"Béton",
+  "cellular_concrete":"Beton cellulaire",
+  "wood":"Bois",
+  "hollow_brick":"Brique creuse",
+  "hollow_brick_(Large)_20cm":"Brique creuse (Grande) 20cm",
+  "hollow_brick_20cm":"Brique creuse 20cm",
+  "solid_brick":"Brique pleine",
+  "cement":"Ciment",
+  "rubble":"Moellons",
+  "stone":"Pierre",
+  "plaster":"Plâtre",
+  "siporex":"Siporex",
+  "dry earth":"Terre sèche",
+
+  "without_Insulation":"Sans isolation",
+  "airflex_(10mm)":"Airflex (10mm)",
+  "asbestos":"Amiante",
+  "wood":"Bois",
+  "depron:_polystyrene_foam":"Depron : mousse Polu",
+  "eFISOL_TMS":"EFISOL TMS",
+  "wood_wool":"Laine de Bois",
+  "glass_wool":"Laine de verre",
+  "polyurethane_foam":"Mousse polyuréthane",
+  "expanded_polystyrene":"Polystyrène expansé",
+  "extruded_polystyrene":"Polystyrène extrudé",
+  "dry_earth":"Terre sèche",
+  "tri_Iso_super_9_(20mm)":"Tri Iso super 9 (20mm)",
+
+
+
 
 
   "add_wall": "Ajouter des murs",

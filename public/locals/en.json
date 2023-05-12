@@ -27,13 +27,44 @@
 
   "your_ceiling_settings": "Your ceiling settings",
   "part_height": "Part height",
-  "material": "Material",
   "expanded_polystyrene": "Expanded polystyrene",
   "extruded_polystyrene": "Extruded polystyrene",
   "Polystyrene": "Polyurethane",
   "concrete_only": "Concrete only",
   "brick_only": "Brick only",
   "clay": "Clay",
+
+
+  "bA13_(gypsum_board)":"BA13 (gypsum board)",
+  "concrete":"Concrete",
+  "cellular_concrete":"Cellular concrete",
+  "wood":"Wood",
+  "hollow_brick":"Hollow brick",
+  "hollow_brick_(Large)_20cm":"Hollow brick (Large) 20cm",
+  "hollow_brick_20cm":"Hollow brick 20cm",
+  "solid_brick":"Solid brick",
+  "cement":"Cement",
+  "rubble":"Rubble",
+  "stone":"Stone",
+  "plaster":"Plaster",
+  "siporex":"Siporex",
+  "dry_earth":"Dry earth",
+
+  "without_Insulation": "Without Insulation",
+  "airflex_(10mm)": "Airflex (10mm)",
+  "asbestos": "Asbestos",
+  "wood": "Wood",
+  "depron:_polystyrene_foam": "Depron: polystyrene foam",
+  "eFISOL_TMS": "EFISOL TMS",
+  "wood_wool": "Wood wool",
+  "glass_wool": "Glass wool",
+  "polyurethane_foam": "Polyurethane foam",
+  "expanded_polystyrene": "Expanded polystyrene",
+  "extruded_polystyrene": "Extruded polystyrene",
+  "dry_earth": "Dry earth",
+  "tri_Iso_super_9_(20mm)": "Tri Iso super 9 (20mm)",
+
+
 
 
 
