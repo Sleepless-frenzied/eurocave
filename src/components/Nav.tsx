@@ -37,7 +37,7 @@ const Nav = () => {
                 </div>
 
 
-                <div onClick={()=>setOpen(!open)} className=' dark:invert-0 invert text-3xl absolute right-8 top-3.5 cursor-pointer md:hidden'>
+                <div onClick={()=>setOpen(!open)} className=' dark:invert-0  text-3xl absolute right-8 top-3.5 cursor-pointer md:hidden'>
                     {
                         open?<RxCross1 className={""}/>:<RxHamburgerMenu className={""}/>
                     }
@@ -53,11 +53,11 @@ const Nav = () => {
                     }
                     <div className={"flex flex-wrap"}>
                         <ButtonLang/>
-                        <div onClick={()=> setTheme(colorTheme)} className={" flex items-center justify-center"}>
+                        <div onClick={()=> setTheme(colorTheme)} className={" flex items-center justify-center "}>
 
                             {colorTheme === 'light'?
-                                (<RxMoon size={32} className={"m-1"}/>) :
-                                (<GiSun size={32} className={"m-1"}/>)}
+                                (<RxMoon size={32} className={"m-1 "}/>) :
+                                (<GiSun size={32} className={"m-1 "}/>)}
 
                         </div>
                     </div>

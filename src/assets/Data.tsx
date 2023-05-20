@@ -89,7 +89,11 @@ export type Floor = {
 export type Wall = {
     info: Info;
     windows: Window[];
+    doors :Doors[];
 };
+export type Doors={
+    info:Info;
+}
 
 export type Window = {
     info: Info;
