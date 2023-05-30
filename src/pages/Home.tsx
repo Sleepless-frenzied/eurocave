@@ -7,6 +7,8 @@ import {BsPlusCircle,BsInfoCircle} from "react-icons/bs";
 import {RxCross1} from "react-icons/rx";
 import {GiDoorway, GiStoneWall, GiWindow} from "react-icons/gi";
 import Modal from "../components/Modal";
+import {Link} from "react-router-dom";
+import NotWall from "./NotWall";
 
 
 
@@ -16,6 +18,32 @@ function Home() {
 
     const initialRoom: Room = {
         walls: [],
+        floor: {
+            info: {
+                height: 10,
+                length:10,
+                width: 0,
+                thickness: 0,
+                mat: "expanded_polystyrene" ,
+                matThick: 10,
+                insMat: "without_Insulation",
+                insThick: 10,
+            },
+        },
+        ceiling: {
+            info: {
+                height: 10,
+                length:10,
+                width: 0,
+                thickness: 0,
+                mat: "expanded_polystyrene" ,
+                matThick: 10,
+                insMat: "without_Insulation",
+                insThick: 10,
+            },
+        },
+        tempExt: 10,
+        tempInt: 10,
     };
 
     type AddWallButtonProps = {
@@ -70,33 +98,6 @@ function Home() {
         });
     };
 
-    const handleDoorInfoChange = (
-        wallIndex: number,
-        doorIndex: number,
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        wallIndex -= 1;
-        const { name, value } = e.target;
-        setRoom((prevRoom) => {
-            const walls = [...prevRoom.walls];
-            const doors = [...walls[wallIndex].doors];
-            doors[doorIndex] = {
-                ...doors[doorIndex],
-                info: {
-                    ...doors[doorIndex].info,
-                    [name]: Number(value),
-                },
-            };
-            walls[wallIndex] = {
-                ...walls[wallIndex],
-                doors,
-            };
-            return {
-                ...prevRoom,
-                walls,
-            };
-        });
-    };
 
     const handleWindowInfoChange = (
         wallIndex: number,
@@ -135,8 +136,8 @@ function Home() {
                 {
                     info: {
                         height: 10,
-                        length:0,
-                        width: 10,
+                        length:10,
+                        width: 0,
                         thickness: 0,
                         mat: "expanded_polystyrene" ,
                         matThick: 10,
@@ -147,6 +148,10 @@ function Home() {
                     windows: [],
                 },
             ],
+            floor: prevRoom.floor,
+            ceiling: prevRoom.ceiling,
+            tempExt: prevRoom.tempExt,
+            tempInt: prevRoom.tempInt,
 
         }));
         console.log(room);
@@ -159,8 +164,8 @@ function Home() {
             windows.push({
                 info: {
                     height: 10,
-                    length:0,
-                    width: 10,
+                    length:10,
+                    width: 0,
                     thickness: 0,
                     mat: "expanded_polystyrene" ,
                     matThick: 10,
@@ -222,8 +227,8 @@ function Home() {
             doors.push({
                 info: {
                     height: 10,
-                    length:0,
-                    width: 10,
+                    length:10,
+                    width: 0,
                     thickness: 0,
                     mat: "expanded_polystyrene" ,
                     matThick: 10,
@@ -252,6 +257,7 @@ function Home() {
 
 
     const [openModal,setModal] = useState(false);
+    const [openNotWall,setNotWall] = useState(false);
 
     const[moreInfo,setMoreInfo] = useState<Doors[]|Window[]>([])
     {/*
@@ -260,33 +266,35 @@ function Home() {
 
 
 
-
     return (
-        <div className="m-4 sm:m-8 md:m-10 grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4 text-lightTxt dark:text-darkTxt">
-            {openModal && <Modal setOpenModal={setModal} arrayToDisplay={moreInfo}/>}
+        <div
+            className="m-4 sm:m-8 md:m-10 grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4 text-lightTxt dark:text-darkTxt">
+            {openModal && <Modal setOpenModal={setModal} arrayToDisplay={moreInfo} />}
+            {openNotWall && <NotWall room={room} setRoom={setRoom} setNotWall={setNotWall}/>}
 
             <div className={"flex flex-col justify-center bg-lightModule dark:bg-darkModule"}>
 
 
-                {wallIndex !== 0 ? <div className={" "} >
-                    <h1 className={"flex justify-center text-2xl md:text-4xl"} > <GiStoneWall className={"m-1"}/>{t("wall")} {room.walls.length}</h1>
+                {wallIndex !== 0 ? <div className={" "}>
+                    <h1 className={"flex justify-center text-2xl md:text-4xl"}><GiStoneWall
+                        className={"m-1"}/>{t("wall")} {room.walls.length}</h1>
                     <hr className={"bg-lightHR dark:bg-darkHR my-2 mx-4"}/>
 
                     <div className={"grid grid-cols-1 gap-1.5 mx-3"}>
 
                         <table className={"table-auto border-separate border-spacing-y-2  "}>
-                            <tbody  >
+                            <tbody>
 
-                            <tr >
+                            <tr>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                     <h1 className={"mx-2 overflow-clip"}>{t("height")}:</h1>
                                 </td>
                                 <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                     <input
-                                        className={" px-2 text-black w-full" }
+                                        className={" px-2 text-black w-full"}
                                         type="number"
                                         name="height"
-                                        value={wall[wallIndex-1].info.height}
+                                        value={wall[wallIndex - 1].info.height}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
                                     />
                                 </td>
@@ -295,16 +303,16 @@ function Home() {
                                 </td>
                             </tr>
 
-                            <tr >
+                            <tr>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <h1 className={"mx-2 overflow-clip"}>{t("width")}:</h1>
+                                    <h1 className={"mx-2 overflow-clip"}>{t("length")}:</h1>
                                 </td>
                                 <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                     <input
-                                        className={" px-2 text-black w-full" }
+                                        className={" px-2 text-black w-full"}
                                         type="number"
-                                        name="width"
-                                        value={wall[wallIndex-1].info.width}
+                                        name="length"
+                                        value={wall[wallIndex - 1].info.length}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
                                     />
                                 </td>
@@ -313,7 +321,7 @@ function Home() {
                                 </td>
                             </tr>
 
-                            <tr >
+                            <tr>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                     <h1 className={"mx-2 overflow-clip"}>{t("material")}:</h1>
                                 </td>
@@ -321,31 +329,29 @@ function Home() {
                                     <select
                                         className={"text-black max-sm:h-12 w-full"}
                                         name="mat"
-                                        value={room.walls[wallIndex-1].info.mat}
+                                        value={room.walls[wallIndex - 1].info.mat}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
                                     >
                                         {wallMaterial.map((material, index) => (
-                                            <option key={index} value={material.name} >
+                                            <option key={index} value={material.name}>
                                                 {t(material.name)}
                                             </option>
                                         ))}
                                     </select>
                                 </td>
-                                <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <span className={"px-2 flex justify-center"}></span>
-                                </td>
+
                             </tr>
 
-                            <tr >
+                            <tr>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                     <h1 className={"mx-2 overflow-clip"}>{t("mat_thickness")}:</h1>
                                 </td>
                                 <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                     <input
-                                        className={" px-2 text-black max-lg:h-12 w-full" }
+                                        className={" px-2 text-black max-lg:h-12 w-full"}
                                         type="number"
                                         name="matThick"
-                                        value={wall[wallIndex-1].info.matThick}
+                                        value={wall[wallIndex - 1].info.matThick}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
                                     />
                                 </td>
@@ -354,39 +360,36 @@ function Home() {
                                 </td>
                             </tr>
 
-                            <tr >
+                            <tr>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <h1 className={"mx-2 overflow-clip"}>{t("insMat")}:</h1>
+                                    <h1 className={"mx-2 overflow-clip"}>{t("insulation")}:</h1>
                                 </td>
                                 <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                     <select
                                         className={"text-black max-sm:h-12 w-full"}
                                         name="insMat"
-                                        value={room.walls[wallIndex-1].info.insMat}
+                                        value={room.walls[wallIndex - 1].info.insMat}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
                                     >
                                         {insMaterial.map((insMataterial, index) => (
-                                            <option key={index} value={insMataterial.name} >
+                                            <option key={index} value={insMataterial.name}>
                                                 {t(insMataterial.name)}
                                             </option>
                                         ))}
                                     </select>
                                 </td>
-                                <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <span className={"px-2 flex justify-center"}></span>
-                                </td>
                             </tr>
 
-                            <tr >
+                            <tr>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                     <h1 className={"mx-2 overflow-clip"}>{t("ins_thickness")}:</h1>
                                 </td>
                                 <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                     <input
-                                        className={" px-2 text-black max-lg:h-12 w-full" }
+                                        className={" px-2 text-black max-lg:h-12 w-full"}
                                         type="number"
                                         name="insThick"
-                                        value={wall[wallIndex-1].info.insThick}
+                                        value={wall[wallIndex - 1].info.insThick}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
                                     />
                                 </td>
@@ -394,46 +397,40 @@ function Home() {
                                     <span className={"px-2 flex justify-center"}>mm</span>
                                 </td>
                             </tr>
-
-
-
-
 
 
                             </tbody>
                         </table>
 
 
-
-
-
                         <div className={`flex flex-row-reverse`}>
-                            <AddWindowButton onAddWindow={() => addWindow(wallIndex-1)} />
+                            <AddWindowButton onAddWindow={() => addWindow(wallIndex - 1)}/>
                             <span className={"w-5"}/>
-                            <AddDoorButton onAddDoor={() => addDoor(wallIndex-1)} />
+                            <AddDoorButton onAddDoor={() => addDoor(wallIndex - 1)}/>
                         </div>
 
 
-                        { curWall.doors.length !== 0 ?
+                        {curWall.doors.length !== 0 ?
                             <>
-                                <h1 className={"flex justify-center text-2xl md:text-4xl"} ><GiDoorway className={"m-1"}/>{t("door")} {curWall.doors.length}</h1>
+                                <h1 className={"flex justify-center text-2xl md:text-4xl"}><GiDoorway
+                                    className={"m-1"}/>{t("door")} {curWall.doors.length}</h1>
                                 <hr className={"bg-lightHR dark:bg-darkHR my-2 mx-4"}/>
                                 <table className={"table-auto border-separate border-spacing-y-2"}>
 
-                                    <tbody  >
+                                    <tbody>
 
-                                    <tr >
+                                    <tr>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                             <h1 className={"mx-2 overflow-clip"}>{t("height")}:</h1>
                                         </td>
                                         <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                             <input
-                                                className={" w-full px-2 text-black " }
+                                                className={" w-full px-2 text-black "}
                                                 type="number"
                                                 name="height"
 
-                                                value={curWall.doors[curWall.doors.length-1].info.height}
-                                                onChange={(e) =>handleDoorInfoChange(wallIndex, curWall.doors.length-1, e)}
+                                                value={curWall.doors[curWall.doors.length - 1].info.height}
+                                                onChange={(e) => handleDoorInfoChange(wallIndex, curWall.doors.length - 1, e)}
                                             />
                                         </td>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
@@ -441,18 +438,18 @@ function Home() {
                                         </td>
                                     </tr>
 
-                                    <tr >
+                                    <tr>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                            <h1 className={"mx-2 overflow-clip"}>{t("width")}:</h1>
+                                            <h1 className={"mx-2 overflow-clip"}>{t("length")}:</h1>
                                         </td>
                                         <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                             <input
-                                                className={" w-full px-2 text-black " }
+                                                className={" w-full px-2 text-black "}
                                                 type="number"
-                                                name="width"
+                                                name="length"
 
-                                                value={curWall.doors[curWall.doors.length-1].info.width}
-                                                onChange={(e) =>handleDoorInfoChange(wallIndex, curWall.doors.length-1, e)}
+                                                value={curWall.doors[curWall.doors.length - 1].info.length}
+                                                onChange={(e) => handleDoorInfoChange(wallIndex, curWall.doors.length - 1, e)}
                                             />
                                         </td>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
@@ -467,14 +464,16 @@ function Home() {
 
 
                                 {
-                                    doorsToRender.length>0 ?
+                                    doorsToRender.length > 0 ?
                                         <div>
                                             <div className={"flex flex-wrqp overflow-x-auto "}>
                                                 {doorsToRender.map((door, index) => (
-                                                    <div key={index} className={"relative m-2 p-2 h-1/4 bg-lightInfo dark:bg-darkInfo columns-3"}>
+                                                    <div key={index}
+                                                         className={"relative m-2 p-2 h-1/4 bg-lightInfo dark:bg-darkInfo columns-3"}>
                                                         <GiDoorway className={"m-1 dark:invert-0"}/>
-                                                        {index+1}
-                                                        <RxCross1 onClick={()=> deleteDoor(index)} className={"absolute top-0 right-0 mr-2 mt-2"}/>
+                                                        {index + 1}
+                                                        <RxCross1 onClick={() => deleteDoor(index)}
+                                                                  className={"absolute top-0 right-0 mr-2 mt-2"}/>
                                                     </div>
                                                 ))}
                                             </div>
@@ -488,26 +487,27 @@ function Home() {
                             null
                         }
 
-                        { curWall.windows.length !== 0 ?
+                        {curWall.windows.length !== 0 ?
                             <>
-                                <h1 className={"flex justify-center text-2xl md:text-4xl"} ><GiWindow className={"m-1"}/>{t("win")} {curWall.windows.length}</h1>
+                                <h1 className={"flex justify-center text-2xl md:text-4xl"}><GiWindow
+                                    className={"m-1"}/>{t("win")} {curWall.windows.length}</h1>
                                 <hr className={"bg-lightHR dark:bg-darkHR my-2 mx-4"}/>
                                 <table className={"table-auto border-separate border-spacing-y-2"}>
 
-                                    <tbody  >
+                                    <tbody>
 
-                                    <tr >
+                                    <tr>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                             <h1 className={"mx-2 overflow-clip"}>{t("height")}:</h1>
                                         </td>
                                         <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                             <input
-                                                className={" w-full px-2 text-black " }
+                                                className={" w-full px-2 text-black "}
                                                 type="number"
                                                 name="height"
 
-                                                value={curWall.windows[curWall.windows.length-1].info.height}
-                                                onChange={(e) =>handleWindowInfoChange(wallIndex, curWall.windows.length-1, e)}
+                                                value={curWall.windows[curWall.windows.length - 1].info.height}
+                                                onChange={(e) => handleWindowInfoChange(wallIndex, curWall.windows.length - 1, e)}
                                             />
                                         </td>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
@@ -515,17 +515,17 @@ function Home() {
                                         </td>
                                     </tr>
 
-                                    <tr >
+                                    <tr>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                            <h1 className={"mx-2 overflow-clip"}>{t("width")}:</h1>
+                                            <h1 className={"mx-2 overflow-clip"}>{t("length")}:</h1>
                                         </td>
                                         <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                             <input
-                                                className={" px-2 text-black w-full" }
+                                                className={" px-2 text-black w-full"}
                                                 type="number"
-                                                name="width"
-                                                value={curWall.windows[curWall.windows.length-1].info.width}
-                                                onChange={(e) => handleWindowInfoChange(wallIndex, curWall.windows.length-1, e)}
+                                                name="length"
+                                                value={curWall.windows[curWall.windows.length - 1].info.length}
+                                                onChange={(e) => handleWindowInfoChange(wallIndex, curWall.windows.length - 1, e)}
                                             />
                                         </td>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
@@ -616,14 +616,16 @@ function Home() {
                                 </table>
 
                                 {
-                                    winToRender.length>0 ?
+                                    winToRender.length > 0 ?
                                         <div>
                                             <div className={"flex flex-wrqp overflow-x-auto "}>
                                                 {winToRender.map((win, index) => (
-                                                    <div key={index} className={"relative m-2 p-2 h-1/4 bg-lightInfo dark:bg-darkInfo columns-3"}>
+                                                    <div key={index}
+                                                         className={"relative m-2 p-2 h-1/4 bg-lightInfo dark:bg-darkInfo columns-3"}>
                                                         <GiWindow className={"m-1 dark:invert-0"}/>
-                                                        {index+1}
-                                                        <RxCross1 onClick={()=> deleteWin(index)} className={"absolute top-0 right-0 mr-2 mt-2"}/>
+                                                        {index + 1}
+                                                        <RxCross1 onClick={() => deleteWin(index)}
+                                                                  className={"absolute top-0 right-0 mr-2 mt-2"}/>
                                                     </div>
                                                 ))}
                                             </div>
@@ -639,58 +641,66 @@ function Home() {
                         }
 
 
-
                     </div>
                     <br/>
-
 
 
                     <hr className={"bg-lightHR dark:bg-darkHR  mx-4"}/>
                 </div> : null}
 
 
-
-
                 <div className={`flex flex-row-reverse`}>
-                    <AddWallButton onAddWall={addWall} />
+                    <AddWallButton onAddWall={addWall}/>
 
                 </div>
             </div>
 
 
-            {wallsToRender.length >0 ?
-                <div className={"h-full bg-lightModule dark:bg-darkModule relative"}>
+            {wallsToRender.length > 0 ?
+                <div className={"max-full bg-lightModule dark:bg-darkModule relative"}>
                     <br/>
                     <div className={" absolute inset-0 overflow-auto"}>
                         {wallsToRender.map((wall, index) => (
-                            <div key={index} className={"relative m-2 p-2 h-1/3 bg-lightInfo dark:bg-darkInfo grid grid-cols-3"}>
+                            <div key={index}
+                                 className={"relative m-2 p-2 h-1/3 bg-lightInfo dark:bg-darkInfo grid grid-cols-3"}>
                                 <div>
-                                    <p className={"text-2xl flex flex-wrap "}> <GiStoneWall className={"mr-2 m-1"}/>Wall {index+1} </p>
+                                    <p className={"text-2xl flex flex-wrap "}><GiStoneWall
+                                        className={"mr-2 m-1"}/>{t("wall")} {index + 1}
+                                    </p>
                                     <p>
                                         {t("height")}: {wall.info.height}
                                         <br/>
-                                        {t("width")}: {wall.info.width}
+                                        {t("length")}: {wall.info.length}
                                         <br/>
                                         {t("material")}: {t(wall.info.mat!)}
                                         <br/>
+
                                     </p>
+
                                 </div>
-                                <div onClick={()=> {
+                                <button disabled={wall.doors.length === 0} onClick={() => {
                                     setModal(true);
                                     setMoreInfo(wall.doors);
                                 }}>
-                                    <p className={`text-2xl flex flex-wrap  ${wall.doors.length===0? 'invisible':'' } `}> <GiDoorway className={"mr-2 m-1"}/>{room.walls[index].doors.length} Doors <BsInfoCircle className={"m-1"}/></p>
-                                </div>
+                                    <p className={`text-2xl flex flex-wrap  ${wall.doors.length === 0 ? 'invisible' : ''} `}>
+                                        <GiDoorway
+                                            className={"mr-2 m-1"}/>{room.walls[index].doors.length} {t("door")} <BsInfoCircle
+                                        className={"m-1"}/></p>
+                                </button>
 
 
-                                <div onClick={()=> {
+                                <button disabled={wall.windows.length === 0} onClick={() => {
                                     setModal(true);
                                     setMoreInfo(wall.windows);
                                 }} aria-disabled={true}>
-                                    <p className={`text-2xl flex flex-wrap  ${wall.windows.length===0? 'invisible':'' } `}> <GiWindow className={"mr-2 m-1"}/>{room.walls[index].windows.length} Windows<BsInfoCircle className={"m-1"}/></p>
-                                </div>
+                                    <p className={`text-2xl flex flex-wrap ${wall.windows.length === 0 ? 'invisible' : ''} `}>
+                                        <GiWindow
+                                            className={"mr-2 m-1"}/>{room.walls[index].windows.length} {t("win")}<BsInfoCircle
+                                        className={"m-1"}/></p>
+                                </button>
 
-                                <RxCross1 onClick={()=> deleteWall(index)} className={"absolute top-0 right-0 mr-2 mt-2"}/>
+                                <RxCross1 onClick={() => deleteWall(index)}
+                                          className={"absolute top-0 right-0 mr-2 mt-2"}/>
                             </div>
                         ))}
                     </div>
@@ -699,6 +709,13 @@ function Home() {
                 :
                 null
             }
+
+
+
+            <button disabled={room.walls.length < 3} className={`absolute bottom-0 right-0 mr-12 mb-12 text-2xl flex flex-wrap bg-lightButton py-2 px-8529952/5 dark:bg-darkButton ${room.walls.length <= 4 ? 'invisible' : ''} `} onClick={()=>setNotWall(true)}>
+                Continue
+            </button>
+
 
 
 

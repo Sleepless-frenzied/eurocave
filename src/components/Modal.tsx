@@ -24,7 +24,7 @@ function Modal({setOpenModal, arrayToDisplay}:any) {
                         <div>
                             {t("height")}: {item.info.height}
                             <br/>
-                            {t("width")}: {item.info.width}
+                            {t("length")}: {item.info.length}
                             <br/>
                             {t("material")}: {t(item.info.mat!)}
                             <br/>

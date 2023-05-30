@@ -16,11 +16,11 @@ const Layout: FC<{ children: ReactNode }> = ({children}) => {
 
             </div>
 
-            <footer className={"bg-lightModule dark:bg-darkModule  text-center w-full fixed inset-x-0 bottom-0"}>
+            {/*<footer className={"bg-lightModule dark:bg-darkModule  text-center w-full fixed inset-x-0 bottom-0"}>
                 <p className={" p-2 flex flex-row justify-center "}>{t("made_with")} React<SiReact
                     className={"m-1 w-min text-blue-600"}/>, Tailwind<SiTailwindcss
                     className={"m-1 w-min text-blue-400"}/> & 💖</p>
-            </footer>
+            </footer>*/}
 
         </main>
     );

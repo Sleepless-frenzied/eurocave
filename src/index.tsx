@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Error404 from "./pages/404";
 import Layout from './components/Layout';
 import Home from "./pages/Home";
+import NotWall from "./pages/NotWall";
 
 import './i18n'
 
@@ -30,6 +31,7 @@ root.render(
                     <Layout>
                         <Routes>
                             <Route path="/" element={<Home/>}/>
+                            <Route path="/NotWall" element={<NotWall/>}/>
                             <Route path="*" element={<Error404/>}/>
                         </Routes>
                     </Layout>

@@ -15,7 +15,7 @@ module.exports = {
         'lightButton':'#868686',
         'lightModule':'#dadada',
         'lightInfo':'#c9c9c9',
-        'lightDivi':'#d6d8db',
+        'lightDivi':'#b0b1b4',
         'lightHR':'#413b3b',
 
 

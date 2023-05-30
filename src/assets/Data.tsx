@@ -65,6 +65,10 @@ export const desiredTemperature = [
 
 export type Room = {
     walls: Wall[];
+    floor: Floor;
+    ceiling: Ceiling;
+    tempInt: number;
+    tempExt: number;
 };
 
 export type Info = {
