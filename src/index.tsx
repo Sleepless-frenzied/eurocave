@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import NotWall from "./pages/NotWall";
 
 import './i18n'
+import Result from "./pages/Result";
+import Test from "./pages/test";
 
 
 
@@ -31,7 +33,8 @@ root.render(
                     <Layout>
                         <Routes>
                             <Route path="/" element={<Home/>}/>
-                            <Route path="/NotWall" element={<NotWall/>}/>
+                            <Route path="/result" element={<Result/>}/>
+                            <Route path="/test" element={<Test/>}/>
                             <Route path="*" element={<Error404/>}/>
                         </Routes>
                     </Layout>

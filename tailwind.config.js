@@ -1,10 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+  //class
+  darkMode: '',
   content: ["./src/**/*.{html,js,jsx,ts,tsx}", "./public/index.html"],
   theme: {
     extend: {
-
+      fontFamily: {
+        argesta: ['Argesta', 'sans-serif'],
+        Gamer: ['"sans"']
+      },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
       },

@@ -54,6 +54,18 @@ export const insMaterial=[
 ]
 
 
+export const vitrage=[
+    {name:"Simple vitrage",thickness:"1",coef:"0,78"},
+    {name:"VITRAGE 4 x 6 x 4 (K = 3.3)",thickness:"14",coef:"0,046"},
+    {name:"VITRAGE 4 x 8 x 4 (K = 3.1)",thickness:"16",coef:"0,049"},
+    {name:"VITRAGE 4 x 10 x 4 (K = 3)",thickness:"18",coef:"0,054"},
+    {name:"VITRAGE 4 x 12 x 4 (K = 2.9)",thickness:"20",coef:"0,058"},
+    {name:"VITRAGE 4 x 16 x 4 (K = 2.8)",thickness:"24",coef:"0,067"},
+    {name:"VITRAGE 6 x 20 x 6 (K = 1,1) ",thickness:"32",coef:"0,035"},
+    {name:"VITRAGE 6 x 12 x 6 Argon",thickness:"24",coef:"0,016"},
+]
+
+
 
 export const desiredTemperature = [
     { label: "12 C°" },

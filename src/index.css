@@ -1,6 +1,13 @@
+
+@font-face {
+  font-family: "argesta";
+  src: url('./assets/fonts/Argesta.otf');
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 
 body {

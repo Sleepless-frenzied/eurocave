@@ -6,6 +6,8 @@ import useDarkMode from "./ButtonTheme";
 import {GiSun, GiWineBottle} from "react-icons/gi";
 import {RxHamburgerMenu, RxMoon, RxCross1} from "react-icons/rx";
 
+import logo from "../assets/img/EUROCAVE-BLACK.png"
+
 
 
 
@@ -25,14 +27,14 @@ const Nav = () => {
 
     return (
         //fixed
-        <div className='dark:bg-darkNav bg-lightNav dark:text-darkTxt text-lightTxt shadow-md w-full relative top-0 left-0  transition-all duration-500 '>
+        <nav className='dark:bg-darkNav bg-darkNav dark:text-darkTxt text-lightTxt shadow-md w-full relative top-0 left-0  transition-all duration-500 '>
             <div className=' md:flex items-center justify-between py-3 px-7 lg:px-20 2xl:px-44 '>
                 <div className='font-bold text-2xl cursor-pointer flex items-center font-[Poppins] '>
-                    <span className='text-3xl text-indigo-600 mr-1 pt-0'>
-                        <GiWineBottle size={32}/>
 
-                    </span>
-                    <Link to={'/'}>Eurocave</Link>
+                    <Link to={'/'}>
+                        <img src={logo} className={"object-scale-down w-40 invert"}/>
+
+                    </Link>
 
                 </div>
 
@@ -44,29 +46,29 @@ const Nav = () => {
                 </div>
 
                 <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static md:z-auto z-[5] left-0 w-full md:w-auto md:pl-0 pl-9 transisiton duration-500 ease-in ${open ? 'top- dark:bg-darkNav bg-lightNav':'top-[-490px]'}`}>
-                    {
+                    {/*{
                         Links.map((link)=>(
                             <li key={link.name} className='md:ml-6 text-xl md:my-0 my-7'>
                                 <Link to={link.link}  className=' hover:text-gray-400 '>{link.name.toUpperCase()}</Link>
                             </li>
                         ))
-                    }
+                    }*/}
                     <div className={"flex flex-wrap"}>
                         <ButtonLang/>
-                        <div onClick={()=> setTheme(colorTheme)} className={" flex items-center justify-center "}>
+                        {/*<div onClick={()=> setTheme(colorTheme)} className={" flex items-center justify-center "}>
 
                             {colorTheme === 'light'?
                                 (<RxMoon size={32} className={"m-1 "}/>) :
                                 (<GiSun size={32} className={"m-1 "}/>)}
 
-                        </div>
+                        </div>*/}
                     </div>
 
                 </ul>
 
 
             </div>
-        </div>
+        </nav>
     )
 }
 

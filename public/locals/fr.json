@@ -74,7 +74,13 @@
   "add_wall": "Ajouter des murs",
   "define_windows": "Définir les fenêtres",
 
-  "made_with": "Fait avec "
+  "validate": "Valider",
+
+  "made_with": "Fait avec ",
+
+
+
+  "nota": "Nota : Ne prendre que 2/3 de la puissnce nominale dans le calcul pour une réserve de puissance en cas de situations extrèmes. Dans le cadre de l'INOA 25 et 50 tenir compte d'une perte de puissance d'environ 10% pour 5 mètres de tubes et 3 coudes."
 
 
 }
