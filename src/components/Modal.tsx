@@ -2,12 +2,16 @@ import React from "react";
 import {RxCross1, RxCross2} from "react-icons/rx";
 import {GiDoorway, GiStoneWall, GiWindow} from "react-icons/gi";
 import {useTranslation} from "react-i18next";
-import {vitrage} from "../assets/Data";
+import {useContextProvider} from "../assets/Data";
+
 
 
 
 function Modal({setOpenModal, arrayToDisplay}:any, isWindow: boolean= false) {
     const { t} = useTranslation();
+    const context = useContextProvider();
+    const {insMaterial, wallMaterial, vitrage}= context;
+
     return (
         <div className={" bg-lightModule bg-darkModule absolute inset-0 flex justify-center items-center z-10 m-auto h-1/2 w-5/6 xl:w-1/2 "}>
             <div className="relative h-full w-full overflow-y-auto border-4 border-red-500  ">

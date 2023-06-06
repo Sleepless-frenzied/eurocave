@@ -1,11 +1,15 @@
 import React from 'react'
 import {useTranslation} from "react-i18next";
-import {insMaterial, Room, wallMaterial} from "../assets/Data";
+import {Room, useContextProvider} from "../assets/Data";
 import {GiCheckMark, GiDoorway} from "react-icons/gi";
 
 
 function DoorsModal({setRoom,curWall,wallIndex,setDoorsModal}:any) {
     const { t} = useTranslation();
+
+    const context = useContextProvider();
+    const {insMaterial, wallMaterial, vitrage,setWhat,setAddMatModal, openAddMatModal}= context;
+
 
     const handleDoorInfoChange = (
         wallIndex: number,
@@ -114,6 +118,12 @@ function DoorsModal({setRoom,curWall,wallIndex,setDoorsModal}:any) {
                                     ))}
                                 </select>
                             </td>
+                            <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                        <span onClick={()=>{
+                                            setWhat("wall");
+                                            setAddMatModal(true);
+                                        }} className={"px-2 flex justify-center"}>+</span>
+                            </td>
 
                         </tr>
 
@@ -152,6 +162,12 @@ function DoorsModal({setRoom,curWall,wallIndex,setDoorsModal}:any) {
                                         </option>
                                     ))}
                                 </select>
+                            </td>
+                            <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                        <span onClick={()=>{
+                                            setWhat("ins");
+                                            setAddMatModal(true);
+                                        }} className={"px-2 flex justify-center"}>+</span>
                             </td>
                         </tr>
 

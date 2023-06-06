@@ -12,6 +12,7 @@ import NotWall from "./pages/NotWall";
 import './i18n'
 import Result from "./pages/Result";
 import Test from "./pages/test";
+import {Provider} from "./assets/Data";
 
 
 
@@ -25,24 +26,25 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter basename={'/products/eurocave/'}>
-
-        <React.StrictMode>
-            <Suspense fallback={loadingMarkup}>
-                <div className={"text-white  transition-all duration-500"}>
-                    <Layout>
-                        <Routes>
-                            <Route path="/" element={<Home/>}/>
-                            <Route path="/result" element={<Result/>}/>
-                            <Route path="/test" element={<Test/>}/>
-                            <Route path="*" element={<Error404/>}/>
-                        </Routes>
-                    </Layout>
-                </div>
-            </Suspense>
-        </React.StrictMode>
-    </BrowserRouter>
-
+    <BrowserRouter basename="/products/eurocave/">
+        <Provider>
+            <React.StrictMode>
+                <Suspense fallback={loadingMarkup}>
+                    <div className="text-white transition-all duration-500">
+                        <Layout>
+                            <Routes>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/NotWall" element={<NotWall />} />
+                                <Route path="/result" element={<Result />} />
+                                <Route path="/test" element={<Test />} />
+                                <Route path="*" element={<Error404 />} />
+                            </Routes>
+                        </Layout>
+                    </div>
+                </Suspense>
+            </React.StrictMode>
+        </Provider>
+    </BrowserRouter>,
 );
 
 // If you want your app to work offline and load faster, you can change

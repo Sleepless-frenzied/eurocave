@@ -11,8 +11,7 @@ import {
     floorMaterial,
     Info,
     Window,
-    insMaterial,
-    wallMaterial
+    useContextProvider
 } from "../assets/Data";
 import {BsPlusCircle, BsInfoCircle} from "react-icons/bs";
 import {RxCross1} from "react-icons/rx";
@@ -22,15 +21,18 @@ import {Link} from "react-router-dom";
 import NotWall from "./NotWall";
 import DoorsModal from "../components/DoorsModal";
 import WinModal from "../components/WinModal";
+import AddMatModal from "../components/AddMatModal";
 
 
 function Home() {
     const {t} = useTranslation();
+    const context = useContextProvider();
+    const {insMaterial, wallMaterial, vitrage,setWhat,  setAddMatModal, openAddMatModal}= context;
 
     const [openModal, setModal] = useState(false);
     const [openDoorsModal, setDoorsModal] = useState(false);
     const [openWinModal, setWinModal] = useState(false);
-    const [openAddMatModal, setAddMatModal] = useState(false);
+
     const [isWindow, setIsWindow] = useState(false);
 
     const [moreInfo, setMoreInfo] = useState<Doors[] | Window[]>([])
@@ -252,27 +254,21 @@ function Home() {
     const wallsToRender = room.walls.slice(0, -1);
     const winToRender = wall.length === 0 ? [] : curWall.windows.slice(0, -1);
     //const doorsToRender = wall.length===0 ? [] : curWall.doors.slice(0,-1);
+    const { addWallMaterial } = useContextProvider();
 
 
-    const [mat, setWallMaterial] = useState(wallMaterial);
 
 
-    const addMaterial = () => {
-        const newMaterial = { name: 'new_material', coef: '0,5' };
-        const updatedWallMaterial = [...wallMaterial, newMaterial];
-        setWallMaterial(updatedWallMaterial);
-    };
 
-    {/*
-        const wallSurface = curWall.info.height! * curWall.info.length!;
-    */
-    }
+
+
 
 
     return (
-        <div className={`h-max m-4 sm:m-8 md:m-10 grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4 text-lightTxt dark:text-darkTxt`}>
+        <div className={`h-full m-4 sm:m-8 md:m-10 grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4 text-lightTxt dark:text-darkTxt`}>
             {openModal && <Modal setOpenModal={setModal} arrayToDisplay={moreInfo} isWindow={isWindow}/>}
-            {openNotWall && <NotWall  room={room} setRoom={setRoom} setNotWall={setNotWall}/>}
+            {openNotWall && <NotWall  room={room} setRoom={setRoom} setNotWall={setNotWall} />}
+            {openAddMatModal && <AddMatModal setAddMatModal={setAddMatModal}/>}
 
             <div className={`flex flex-col relative  justify-center bg-lightModule dark:bg-darkModule `}>
 
@@ -336,13 +332,20 @@ function Home() {
                                         value={room.walls[wallIndex - 1].info.mat}
                                         onChange={(e) => handleWallInfoChange(wallIndex, e)}
                                     >
-                                        {mat.map((material, index) => (
+                                        {wallMaterial.map((material, index) => (
                                             <option key={index} value={material.name}>
                                                 {t(material.name)}
                                             </option>
                                         ))}
                                     </select>
                                 </td>
+                                <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                        <span onClick={()=>{
+                                            setWhat("wall");
+                                            setAddMatModal(true);
+                                        }} className={"px-2 flex justify-center"}>+</span>
+                                </td>
+
 
                             </tr>
 
@@ -382,6 +385,13 @@ function Home() {
                                         ))}
                                     </select>
                                 </td>
+                                <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                        <span onClick={()=>{
+                                            setWhat("ins");
+                                            setAddMatModal(true);
+                                        }} className={"px-2 flex justify-center"}>+</span>
+                                </td>
+
                             </tr>
 
                             {
@@ -467,15 +477,15 @@ function Home() {
 
 
                 {
-                    room.walls.length !== 5?
+                    room.walls.length !== 4?
                         <div className={`flex flex-row-reverse`}>
                             <AddWallButton onAddWall={addWall}/>
                         </div>:
-                        <button
-                                className={` text-2xl flex flex-row-reverse bg-lightButton justify-center py-2 px-3 dark:bg-darkButton hover:bg-red-500 `}
-                                onClick={() => setNotWall(true)}>
+                        <Link to={"/NotWall"}
+                              className={`absolute bottom-0 right-0 bg-lightButton  m-2 px-4 py-3 text-xl md:text-2xl `}
+                              onClick={()=>{localStorage.setItem('redirectProps', JSON.stringify(room));}}>
                             Continue
-                        </button>
+                        </Link>
                 }
 
 
@@ -487,10 +497,11 @@ function Home() {
             {wallsToRender.length > 0 ?
                 <div className={"max-full bg-lightModule dark:bg-darkModule relative"}>
                     <br/>
-                    <div className={" absolute inset-0 overflow-auto"}>
+                    <div className={" absolute inset-0 p-2 grid grid-rows-3 gap-2"}>
                         {wallsToRender.map((wall, index) => (
                             <div key={index}
-                                 className={"relative m-2 p-2 h-2/5 bg-lightInfo dark:bg-darkInfo grid grid-cols-3"}>
+                                 className={"relative p-2 h-full bg-lightInfo dark:bg-darkInfo grid grid-cols-3 "}>
+
                                 <div>
                                     <p className={"text-2xl flex flex-wrap "}><GiStoneWall
                                         className={"mr-2 m-1"}/>{t("wall")} {index + 1}
@@ -509,9 +520,10 @@ function Home() {
                                                     <br/>
                                                     {t("material")}: {t(wall.info.insMat!)}
                                                     <br/>
-                                                    {t("matThick")}: {wall.info.insThick}
+                                                    {t("ins_thickness")}: {wall.info.insThick}
                                                 </>
                                         }
+
 
                                     </div>
 
@@ -551,13 +563,10 @@ function Home() {
             }
 
 
-            <button onClick={addMaterial}>
-                testsets
-            </button>
-
         </div>
 
     );
 }
+
 
 export default Home;

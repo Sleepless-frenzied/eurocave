@@ -27,7 +27,7 @@ const Nav = () => {
 
     return (
         //fixed
-        <nav className='dark:bg-darkNav bg-darkNav dark:text-darkTxt text-lightTxt shadow-md w-full relative top-0 left-0  transition-all duration-500 '>
+        <nav className='dark:bg-darkNav bg-darkNav dark:text-darkTxt h-16 text-lightTxt shadow-md w-full relative top-0 left-0  transition-all duration-500 '>
             <div className=' md:flex items-center justify-between py-3 px-7 lg:px-20 2xl:px-44 '>
                 <div className='font-bold text-2xl cursor-pointer flex items-center font-[Poppins] '>
 

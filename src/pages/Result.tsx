@@ -1,5 +1,5 @@
 import React from 'react';
-import {insMaterial, Room, vitrage, wallMaterial} from "../assets/Data";
+import {Room, useContextProvider} from "../assets/Data";
 import {BiCommentEdit} from "react-icons/all";
 import {useTranslation} from "react-i18next";
 
@@ -68,35 +68,38 @@ let globalCoef = [0, 0, 0];
 let finalSurface = 0;
 let finalLoss = 0;
 
-function getCoef(Item: any, IsWindow: boolean = false): number {
-    if (IsWindow) {
-        Thickness = parseFloat(vitrage.find((material) => material.name === Item.info.mat)!.thickness.replace(',', '.'));
-        Conductivity = parseFloat(vitrage.find((material) => material.name === Item.info.mat)!.coef.replace(',', '.'));
-    }
-    else{
-        Thickness = Item.info.matThick!;
-        Conductivity = parseFloat(wallMaterial.find((material) => material.name === Item.info.mat)!.coef.replace(',', '.'));
-        InsThickness = Item.info.insThick!;
-        InsConductivity = parseFloat(insMaterial.find((material) => material.name === Item.info.insMat)!.coef.replace(',', '.'));
-
-    }
-
-
-    console.log("Con "+": " + Conductivity);
-    console.log("Thick "+": " + Thickness);
-    console.log("insCon "+": " + InsConductivity);
-    console.log("insThick "+": " + InsThickness);
-    Coef = 1 / (1 / (Conductivity / Thickness * 1000) + 1 / (InsConductivity / InsThickness * 1000));
-    //console.log("Coef"+Coef)
-
-    return Coef
-}
 
 
 
-function calc(room:any) {
+function useCalc(room:any) {
 
-    const wallsToRender = room?.walls?.slice(0, -1);
+
+    finalLoss = 0;
+
+
+
+
+    const wallsToRender = room?.walls;
+    //?.slice(0, -1);
+
+    const context = useContextProvider();
+    const {insMaterial, wallMaterial, vitrage}= context;
+
+
+    const getCoef = (Item: any, IsWindow: boolean = false): number => {
+        if (IsWindow) {
+            Thickness = parseFloat(vitrage.find((material: any) => material.name === Item.info.mat)!.thickness.replace(',', '.'));
+            Conductivity = parseFloat(vitrage.find((material: any) => material.name === Item.info.mat)!.coef.replace(',', '.'));
+        } else {
+            Thickness = Item.info.matThick!;
+            Conductivity = parseFloat(wallMaterial.find((material: any) => material.name === Item.info.mat)!.coef.replace(',', '.'));
+            InsThickness = Item.info.insThick!;
+            InsConductivity = parseFloat(insMaterial.find((material: any) => material.name === Item.info.insMat)!.coef.replace(',', '.'));
+        }
+
+        Coef = 1 / ((1 / (Conductivity / Thickness * 1000)) + (1 / (InsConductivity / InsThickness * 1000)));
+        return Coef;
+    };
 
     let idx = 0;
     console.log(wallsToRender)
@@ -158,9 +161,9 @@ function calc(room:any) {
     const lengthArray: number[] = wallsToRender.map((wall:any) => wall.info?.length!);
 
     const roomSurface = calculateRectangleArea(lengthArray);
-    console.log("Room surface"+idx+": " + roomSurface);
+    console.log("Room surface"+": " + roomSurface);
     const floorCoef = getCoef(room.floor);
-    console.log("floor coef"+idx+": " + floorCoef);
+    console.log("floor coef"+": " + floorCoef);
     const floorGlobalCoef = 1 / (1 / floorCoef + 1 / externalCoef + 1 / internalCoef);
     finalLoss+= floorGlobalCoef*roomSurface;
 
@@ -168,18 +171,22 @@ function calc(room:any) {
     const ceilingGlobalCoef = 1 / (1 / ceilingCoef + 1 / externalCoef + 1 / internalCoef);
 
 
-    finalLoss+= ceilingGlobalCoef*roomSurface;
-    console.log("FinalLoss"+idx+": " + finalLoss);
+    finalLoss+= ceilingGlobalCoef * roomSurface;
+
+    console.log("c"+": " + ceilingGlobalCoef);
+    console.log("room"+": " + roomSurface);
+    console.log("FinalLoss"+": " + finalLoss);
 
 
 
     const final = (finalLoss * (room.tempExt-room.tempInt)).toFixed(3);
 
+    console.log("FinalFinal"+": " + final);
+
 
     return final;
 //room.tempExt-room.tempInt
 }
-
 
 
 
@@ -196,7 +203,7 @@ export default function Result() {
 
         <div className={"bg-light dark:bg-dark flex flex-col justify-center items-center h-full w-full p-6 text-justify "}>
             <div className={"text-9xl text-red-500"}>
-                {calc(room)}
+                {useCalc(room)}
             </div>
             <div className={"text-lightTxt text-xl "}>
                 <p>{t("nota")}</p>

@@ -7,18 +7,25 @@ import {SiReact, SiTailwindcss} from "react-icons/si";
 const Layout: FC<{ children: ReactNode }> = ({children}) => {
     const {t} = useTranslation()
     return (
-        <main className="relative min-h-screen">
-            {/*<Nav/>*/}
-            <div className={"h-full"}>
-                <Nav/>
-                {children}
-            </div>
+        <main className="relative h-[calc(100vh-10rem)]">
+            {/*<Nav/>
 
-            <footer className={"bg-lightModule dark:bg-darkModule  text-center w-full fixed inset-x-0 bottom-0"}>
+
+            <div className={"h-full"}>
+
+            </div>
+            */}
+
+
+
+            <Nav/>
+            {children}
+
+            {/*<footer className={"bg-lightModule dark:bg-darkModule  text-center w-full fixed inset-x-0 bottom-0"}>
                 <p className={" p-2 flex flex-row justify-center "}>{t("made_with")} React<SiReact
                     className={"m-1 w-min text-blue-600"}/>, Tailwind<SiTailwindcss
                     className={"m-1 w-min text-blue-400"}/> & 💖</p>
-            </footer>
+            </footer>*/}
 
         </main>
     );

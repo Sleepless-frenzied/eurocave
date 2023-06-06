@@ -5,10 +5,14 @@
   "about": "About",
   "contact": "Contact",
 
+  "name": "Name",
   "wall": "Wall",
   "door": "Door",
   "win": "Window",
+  "ceiling": "Ceiling",
+  "floor": "Floor",
 
+  "coef": "coefficient",
   "height": "Height",
   "length": "Length",
   "width": "Width",
@@ -23,6 +27,7 @@
   "semi_buried": "Semi-Buried",
   "buried": "Buried",
 
+  "temperature": "Outside temperature",
   "desired_temperature": "Desired temperature",
 
   "your_floor_settings": "Your floor settings",
@@ -36,6 +41,7 @@
   "brick_only": "Brick only",
   "clay": "Clay",
 
+  "newMat":"New material",
 
   "bA13_(gypsum_board)":"BA13 (gypsum board)",
   "concrete":"Concrete",
@@ -69,6 +75,7 @@
 
 
 
+  "add": "Add",
   "add_door": "Add door",
   "add_win": "Add window",
   "add_wall": "Add wall",

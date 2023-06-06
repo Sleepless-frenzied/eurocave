@@ -5,11 +5,15 @@
   "about": "À propos",
   "contact": "Contact",
 
+  "name": "Nom",
   "wall": "Mur",
   "door": "Porte",
   "win": "Fenêtre",
+  "ceiling": "Plafond",
+  "floor": "Sol",
 
 
+  "coef": "coefficient",
   "height": "Hauteur",
   "length": "Longueur",
   "width": "Largeur",
@@ -24,6 +28,7 @@
   "semi_buried": "Semi-enterrée",
   "buried": "Enterrée",
 
+  "temperature": "Température extérieur",
   "desired_temperature": "Température souhaitée",
 
   "your_floor_settings": "Paramètres de votre sol",
@@ -36,6 +41,8 @@
   "concrete_only": "Béton seul",
   "brick_only": "Brique seule",
   "clay": "Terre battue",
+
+  "newMat":"Nouveau matériel",
 
   "bA13_(gypsum_board)":"BA13 (placoplatre)",
   "concrete":"Béton",
@@ -68,7 +75,7 @@
 
 
 
-
+  "add": "Ajouter",
   "add_door": "Ajouter porte",
   "add_win": "Ajouter fenêtre",
   "add_wall": "Ajouter des murs",

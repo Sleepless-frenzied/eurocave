@@ -2,10 +2,13 @@ import React from 'react'
 import {RxCross2} from "react-icons/rx";
 import {useTranslation} from "react-i18next";
 import {GiCheckMark, GiDoorway, GiWindow} from "react-icons/gi";
-import {floorMaterial, insMaterial, Room, vitrage, wallMaterial} from "../assets/Data";
+import {floorMaterial ,Room, useContextProvider, } from "../assets/Data";
 
 function WinModal({setRoom,curWall,wallIndex,setWinModal}:any) {
     const { t} = useTranslation();
+
+    const context = useContextProvider();
+    const {insMaterial, wallMaterial, vitrage,setWhat,setAddMatModal, openAddMatModal}= context;
 
 
     const handleWindowInfoChange = (
@@ -114,6 +117,12 @@ function WinModal({setRoom,curWall,wallIndex,setWinModal}:any) {
                                         </option>
                                     ))}
                                 </select>
+                            </td>
+                            <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                        <span onClick={()=>{
+                                            setWhat("win");
+                                            setAddMatModal(true);
+                                        }} className={"px-2 flex justify-center"}>+</span>
                             </td>
 
                         </tr>
