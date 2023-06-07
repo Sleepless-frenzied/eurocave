@@ -12,6 +12,7 @@
   "ceiling": "Ceiling",
   "floor": "Floor",
 
+  "temp": "Temperature",
   "coef": "coefficient",
   "height": "Height",
   "length": "Length",
@@ -86,5 +87,11 @@
 
   "made_with": "Made with",
 
+
+
+  "device": "Device",
+  "fridge": "Fridge power",
+  "resistance": "Resistance",
+  "necessary": "Required power (in W) =",
   "nota": "N.B: Only take 2/3 of the power rating in the calculation for power reserve in case of extreme situations. For the INOA 25 and 50, take into account a power loss of approximately 10% for 5 metres of pipes and 3 bends."
 }

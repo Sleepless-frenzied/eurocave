@@ -1,14 +1,13 @@
 import React from 'react'
-import {RxCross2} from "react-icons/rx";
 import {useTranslation} from "react-i18next";
-import {GiCheckMark, GiDoorway, GiWindow} from "react-icons/gi";
-import {floorMaterial ,Room, useContextProvider, } from "../assets/Data";
+import {GiCheckMark, GiWindow} from "react-icons/gi";
+import {Room, useContextProvider,} from "../assets/Data";
 
-function WinModal({setRoom,curWall,wallIndex,setWinModal}:any) {
-    const { t} = useTranslation();
+function WinModal({setRoom, curWall, wallIndex, setWinModal}: any) {
+    const {t} = useTranslation();
 
     const context = useContextProvider();
-    const {insMaterial, wallMaterial, vitrage,setWhat,setAddMatModal, openAddMatModal}= context;
+    const {insMaterial, wallMaterial, vitrage, setWhat, setAddMatModal, openAddMatModal} = context;
 
 
     const handleWindowInfoChange = (
@@ -17,8 +16,8 @@ function WinModal({setRoom,curWall,wallIndex,setWinModal}:any) {
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         wallIndex -= 1;
-        const { name, value } = e.target;
-        setRoom((prevRoom:Room) => {
+        const {name, value} = e.target;
+        setRoom((prevRoom: Room) => {
             const walls = [...prevRoom.walls];
             const windows = [...walls[wallIndex].windows];
             windows[windowIndex] = {
@@ -40,8 +39,9 @@ function WinModal({setRoom,curWall,wallIndex,setWinModal}:any) {
     };
 
 
-    return(
-        <div className={" overflow-y-auto bg-lightModule dark:bg-darkModule absolute inset-0 flex justify-center items-center z-10 m-auto h-full w-full "}>
+    return (
+        <div
+            className={" overflow-y-auto bg-lightModule dark:bg-darkModule absolute inset-0 flex justify-center items-center z-10 m-auto h-full w-full "}>
             <div className="relative h-full w-full ">
                 <button
                     className={"absolute bottom-0 right-0 bg-lightButton dark:bg-darkButton px-6 py-3 m-3 flex flex-wrap"}
@@ -119,7 +119,7 @@ function WinModal({setRoom,curWall,wallIndex,setWinModal}:any) {
                                 </select>
                             </td>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("win");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
@@ -210,8 +210,6 @@ function WinModal({setRoom,curWall,wallIndex,setWinModal}:any) {
                         }
 
                         */}
-
-
 
 
                         </tbody>

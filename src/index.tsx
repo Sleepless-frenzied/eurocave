@@ -15,7 +15,6 @@ import Test from "./pages/test";
 import {Provider} from "./assets/Data";
 
 
-
 const loadingMarkup = (
     <div className="animate-ping text-8xl py-4 text-center">
         <p>Loading...</p>
@@ -23,7 +22,7 @@ const loadingMarkup = (
 )
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
     <BrowserRouter basename="/products/eurocave/">
@@ -33,11 +32,11 @@ root.render(
                     <div className="text-white transition-all duration-500">
                         <Layout>
                             <Routes>
-                                <Route path="/" element={<Home />} />
-                                <Route path="/NotWall" element={<NotWall />} />
-                                <Route path="/result" element={<Result />} />
-                                <Route path="/test" element={<Test />} />
-                                <Route path="*" element={<Error404 />} />
+                                <Route path="/" element={<Home/>}/>
+                                <Route path="/NotWall" element={<NotWall/>}/>
+                                <Route path="/result" element={<Result/>}/>
+                                <Route path="/test" element={<Test/>}/>
+                                <Route path="*" element={<Error404/>}/>
                             </Routes>
                         </Layout>
                     </div>
@@ -50,7 +49,7 @@ root.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.unregister();
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

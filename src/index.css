@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 
 @font-face {
-  font-family: "argesta";
-  src: url('./assets/fonts/Argesta.otf');
+    font-family: "argesta";
+    src: url('./assets/fonts/Argesta.otf');
 }
 
 @tailwind base;
@@ -9,17 +10,16 @@
 @tailwind utilities;
 
 
-
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }

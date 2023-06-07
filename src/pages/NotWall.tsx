@@ -1,28 +1,25 @@
-import React, {useState} from 'react'
-import {RxCross2} from "react-icons/rx";
-import { Room, useContextProvider,} from "../assets/Data";
+import React from 'react'
+import {Room, useContextProvider,} from "../assets/Data";
 import {useTranslation} from "react-i18next";
-import {GiStoneWall} from "react-icons/gi";
-import Calc from "./Result";
-import Result from "./Result";
 import {Link} from "react-router-dom";
+import AddMatModal from "../components/AddMatModal";
+import {FaTemperatureHigh} from "react-icons/fa";
 
 
+export default function NotWall({setNotWall}: any) {
 
-export default function NotWall({setRoom,setNotWall}:any) {
-
-    const redirectPropsString = localStorage.getItem('redirectProps');
-    const room = redirectPropsString ? JSON.parse(redirectPropsString) : null;
-
-    const { t} = useTranslation();
+    const {t} = useTranslation();
     const context = useContextProvider();
-    const {insMaterial, wallMaterial, vitrage,setWhat,setAddMatModal}= context;
-
+    const {
+        room,
+        setRoom, insMaterial, wallMaterial, vitrage, setWhat, openAddMatModal,
+        setAddMatModal,
+    } = context;
 
 
     const handleFloorInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setRoom((prevRoom:Room) => ({
+        const {name, value} = e.target;
+        setRoom((prevRoom: Room) => ({
             ...prevRoom,
             floor: {
                 ...prevRoom.floor,
@@ -36,8 +33,8 @@ export default function NotWall({setRoom,setNotWall}:any) {
 
 
     const handleCeilingInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setRoom((prevRoom:Room) => ({
+        const {name, value} = e.target;
+        setRoom((prevRoom: Room) => ({
             ...prevRoom,
             ceiling: {
                 ...prevRoom.ceiling,
@@ -51,8 +48,8 @@ export default function NotWall({setRoom,setNotWall}:any) {
 
 
     const handleTemperatureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setRoom((prevRoom:Room) => ({
+        const {name, value} = e.target;
+        setRoom((prevRoom: Room) => ({
             ...prevRoom,
             [name]: Number(value),
         }));
@@ -61,33 +58,29 @@ export default function NotWall({setRoom,setNotWall}:any) {
     //const [openres, setres] = useState(false);
 
 
+    console.log(room);
+    return (
 
-    return(
 
-        <div className={"  bg-light dark:bg-dark flex flex-col justify-center items-center h-full w-full p-6 text-justify text-lightTxt "}>
+        <div className={" h-full bg-light dark:bg-dark w-full p-6 text-lightTxt flex justify-center items-center "}>
             {/*openres && <Result room={room}/>*/}
+            {openAddMatModal && <AddMatModal setAddMatModal={setAddMatModal}/>}
 
-            <Link to={"/result"}
-                  className={`absolute bottom-0 right-0 bg-lightButton  m-2 px-4 py-3 text-xl md:text-2xl `}
-                  onClick={()=>{localStorage.setItem('redirectProps', JSON.stringify(room));}}>
-                Calcul
-            </Link>
 
-            <div className={"m"}>
-                <div className="relative h-full w-full columns-1 sm:columns-2">
-                    <button
+            <div className={""}>
+                <div className=" w-full grid grid-cols-1 sm:grid-cols-2  sm:gap-4">
+                    {/*<button
                         className={"absolute top-0 right-0 "}
                         onClick={() => {
                             setNotWall(false);
                         }}
                     >
                         <RxCross2 className={"m-1 text-red-500 text-2xl"}/>
-                    </button>
+                    </button>*/}
 
 
                     <div>
-                        <h1 className={"flex justify-center text-2xl md:text-4xl"}><GiStoneWall
-                            className={"m-1"}/>{t("floor")}</h1>
+                        <h1 className={"flex justify-center text-2xl md:text-4xl"}>{t("floor")}</h1>
                         <hr className={"bg-lightHR dark:bg-darkHR my-2 mx-4"}/>
                         <table className={"table-auto border-separate border-spacing-y-2  "}>
 
@@ -113,7 +106,7 @@ export default function NotWall({setRoom,setNotWall}:any) {
                                     </select>
                                 </td>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("wall");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
@@ -158,7 +151,7 @@ export default function NotWall({setRoom,setNotWall}:any) {
                                     </select>
                                 </td>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("ins");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
@@ -166,7 +159,7 @@ export default function NotWall({setRoom,setNotWall}:any) {
                             </tr>
 
                             {
-                                room.floor.info.insMat === "without_Insulation" ? <></>:
+                                room.floor.info.insMat === "without_Insulation" ? <></> :
                                     <tr>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                             <h1 className={"mx-2 overflow-clip"}>{t("ins_thickness")}:</h1>
@@ -176,7 +169,7 @@ export default function NotWall({setRoom,setNotWall}:any) {
                                                 className={" px-2 text-black max-lg:h-12 w-full"}
                                                 type="number"
                                                 name="insThick"
-                                                value={room.floor.info.insMat}
+                                                value={room.floor.info.insThick}
                                                 onChange={(e) => handleFloorInfoChange(e)}
                                             />
                                         </td>
@@ -187,15 +180,13 @@ export default function NotWall({setRoom,setNotWall}:any) {
                             }
 
 
-
                             </tbody>
 
                         </table>
                     </div>
 
-                    <div >
-                        <h1 className={"flex justify-center text-2xl md:text-4xl"}><GiStoneWall
-                            className={"m-1"}/>{t("ceiling")}</h1>
+                    <div>
+                        <h1 className={"flex justify-center text-2xl md:text-4xl"}>{t("ceiling")}</h1>
                         <hr className={"bg-lightHR dark:bg-darkHR my-2 mx-4"}/>
                         <table className={"table-auto border-separate border-spacing-y-2  "}>
 
@@ -222,7 +213,7 @@ export default function NotWall({setRoom,setNotWall}:any) {
                                 </td>
 
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("wall");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
@@ -266,7 +257,7 @@ export default function NotWall({setRoom,setNotWall}:any) {
                                     </select>
                                 </td>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("ins");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
@@ -274,7 +265,7 @@ export default function NotWall({setRoom,setNotWall}:any) {
                             </tr>
 
                             {
-                                room.ceiling.info.insMat === "without_Insulation" ? <></>:
+                                room.ceiling.info.insMat === "without_Insulation" ? <></> :
                                     <tr>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                             <h1 className={"mx-2 overflow-clip"}>{t("ins_thickness")}:</h1>
@@ -284,7 +275,7 @@ export default function NotWall({setRoom,setNotWall}:any) {
                                                 className={" px-2 text-black max-lg:h-12 w-full"}
                                                 type="number"
                                                 name="insThick"
-                                                value={room.ceiling.info.insMat}
+                                                value={room.ceiling.info.insThick}
                                                 onChange={(e) => handleCeilingInfoChange(e)}
                                             />
                                         </td>
@@ -295,7 +286,6 @@ export default function NotWall({setRoom,setNotWall}:any) {
                             }
 
 
-
                             </tbody>
 
                         </table>
@@ -303,49 +293,69 @@ export default function NotWall({setRoom,setNotWall}:any) {
 
 
                 </div>
-                <br/>
-                <div className={"flex flex-col m-3 items-center"}>
+
+                <div className={"flex flex-col  items-center"}>
+                    <h1 className={"flex justify-center text-2xl md:text-4xl"}>
+                        <FaTemperatureHigh className={"m-1"}/>
+                        {t("temp")}
+                    </h1>
+                    <hr className={"bg-lightHR dark:bg-darkHR my-2 mx-4"}/>
+
                     <table className={"table-auto border-separate border-spacing-y-2"}>
                         <tbody>
+
+
                         <tr>
-                            <td className={"border-2 border-lightDivi "}>
-                                <span className={" px-2"}>{t("temperature")}: </span>
+                            <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                <h1 className={"mx-2 overflow-clip"}>{t("temperature")}: </h1>
                             </td>
-                            <td className={"border-2 border-lightDivi "}>
+                            <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                 <input
-                                    className={" px-2"}
-                                type="number"
-                                name="tempExt"
-                                value={room.tempExt}
-                                onChange={handleTemperatureChange}
+                                    className={" px-2 text-black max-lg:h-12 w-full"}
+                                    type="number"
+                                    name="tempExt"
+                                    value={room.tempExt}
+                                    onChange={handleTemperatureChange}
                                 />
                             </td>
-                            <td className={"border-2 border-lightDivi "}>
-                                <span className={" px-2"} >C°</span>
+                            <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                <span className={"px-2 flex justify-center"}>C°</span>
                             </td>
                         </tr>
                         <tr>
-                            <td className={"border-2 border-lightDivi "}>
-                                <span className={" px-2"} >{t("desired_temperature")}:</span>
+                            <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                <h1 className={"mx-2 overflow-clip"}>{t("desired_temperature")}:</h1>
                             </td>
-                            <td className={"border-2 border-lightDivi "}>
+                            <td className={"border-2 border-lightDivi  dark:border-darkDivi"}>
                                 <input
-                                    className={" px-2"}
+                                    className={" px-2 text-black max-lg:h-12 w-full"}
                                     type="number"
                                     name="tempInt"
                                     value={room.tempInt}
                                     onChange={handleTemperatureChange}
                                 />
                             </td>
-                            <td className={"border-2 border-lightDivi "}>
-                                <span className={" px-2"}>C°</span>
+                            <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
+                                <span className={"px-2 flex justify-center"}>C°</span>
                             </td>
                         </tr>
+
+
                         </tbody>
                     </table>
 
                 </div>
+                <div className={"flex flex-col items-end"}>
+                    <Link to={"/result"}
+                          className={` items-end place-self-end bg-lightButton  m-2 px-4 py-3 text-xl md:text-2xl `}
+                          onClick={() => {
+                              localStorage.setItem('redirectProps', JSON.stringify(room));
+                          }}>
+                        Calcul
+                    </Link>
+                </div>
             </div>
+
 
         </div>
     )

@@ -2,18 +2,8 @@ import React, {useState} from 'react';
 import '../App.css';
 import {useTranslation} from 'react-i18next';
 
-import {
-    Room,
-    Doors,
-    Wall,
-    Ceiling,
-    Floor,
-    floorMaterial,
-    Info,
-    Window,
-    useContextProvider
-} from "../assets/Data";
-import {BsPlusCircle, BsInfoCircle} from "react-icons/bs";
+import {Doors, Room, useContextProvider, Window} from "../assets/Data";
+import {BsInfoCircle, BsPlusCircle} from "react-icons/bs";
 import {RxCross1} from "react-icons/rx";
 import {GiDoorway, GiStoneWall, GiWindow} from "react-icons/gi";
 import Modal from "../components/Modal";
@@ -27,7 +17,10 @@ import AddMatModal from "../components/AddMatModal";
 function Home() {
     const {t} = useTranslation();
     const context = useContextProvider();
-    const {insMaterial, wallMaterial, vitrage,setWhat,  setAddMatModal, openAddMatModal}= context;
+    const {
+        room,
+        setRoom, insMaterial, wallMaterial, vitrage, setWhat, setAddMatModal, openAddMatModal
+    } = context;
 
     const [openModal, setModal] = useState(false);
     const [openDoorsModal, setDoorsModal] = useState(false);
@@ -38,36 +31,6 @@ function Home() {
     const [moreInfo, setMoreInfo] = useState<Doors[] | Window[]>([])
     const [openNotWall, setNotWall] = useState(false);
 
-
-    const initialRoom: Room = {
-        walls: [],
-        floor: {
-            info: {
-                height: 10,
-                length: 10,
-                width: 0,
-                thickness: 0,
-                mat: "bA13_(gypsum_board)",
-                matThick: 10,
-                insMat: "without_Insulation",
-                insThick: 10,
-            },
-        },
-        ceiling: {
-            info: {
-                height: 10,
-                length: 10,
-                width: 0,
-                thickness: 0,
-                mat: "bA13_(gypsum_board)",
-                matThick: 10,
-                insMat: "without_Insulation",
-                insThick: 10,
-            },
-        },
-        tempExt: 10,
-        tempInt: 10,
-    };
 
     type AddWallButtonProps = {
         onAddWall: () => void;
@@ -95,7 +58,7 @@ function Home() {
     };
 
     const AddWindowButton = ({onAddWindow}: AddWindowButtonProps) => {
-        return <button className={"flex flex-row"} onClick={()=> {
+        return <button className={"flex flex-row"} onClick={() => {
             onAddWindow();
             setWinModal(true);
         }}>
@@ -103,8 +66,6 @@ function Home() {
             <BsPlusCircle className={"m-1"}/>
         </button>;
     };
-
-    const [room, setRoom] = useState(initialRoom);
 
     const handleWallInfoChange = (
         wallIndex: number,
@@ -254,27 +215,23 @@ function Home() {
     const wallsToRender = room.walls.slice(0, -1);
     const winToRender = wall.length === 0 ? [] : curWall.windows.slice(0, -1);
     //const doorsToRender = wall.length===0 ? [] : curWall.doors.slice(0,-1);
-    const { addWallMaterial } = useContextProvider();
-
-
-
-
-
-
-
+    const {addWallMaterial} = useContextProvider();
 
 
     return (
-        <div className={`h-full m-4 sm:m-8 md:m-10 grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4 text-lightTxt dark:text-darkTxt`}>
+        <div
+            className={`h-full p-4 sm:p-8 md:p-10 grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4 text-lightTxt dark:text-darkTxt `}>
             {openModal && <Modal setOpenModal={setModal} arrayToDisplay={moreInfo} isWindow={isWindow}/>}
-            {openNotWall && <NotWall  room={room} setRoom={setRoom} setNotWall={setNotWall} />}
+            {openNotWall && <NotWall room={room} setRoom={setRoom} setNotWall={setNotWall}/>}
             {openAddMatModal && <AddMatModal setAddMatModal={setAddMatModal}/>}
 
             <div className={`flex flex-col relative  justify-center bg-lightModule dark:bg-darkModule `}>
 
 
-                {openDoorsModal && <DoorsModal room={room} setRoom={setRoom} curWall={curWall} wallIndex={wallIndex} setDoorsModal={setDoorsModal}/>}
-                {openWinModal && <WinModal room={room} setRoom={setRoom} curWall={curWall} wallIndex={wallIndex} setWinModal={setWinModal}/>}
+                {openDoorsModal && <DoorsModal room={room} setRoom={setRoom} curWall={curWall} wallIndex={wallIndex}
+                                               setDoorsModal={setDoorsModal}/>}
+                {openWinModal && <WinModal room={room} setRoom={setRoom} curWall={curWall} wallIndex={wallIndex}
+                                           setWinModal={setWinModal}/>}
                 {wallIndex !== 0 ? <div className={" "}>
                     <h1 className={"flex justify-center text-2xl md:text-4xl"}><GiStoneWall
                         className={"m-1"}/>{t("wall")} {room.walls.length}</h1>
@@ -340,7 +297,7 @@ function Home() {
                                     </select>
                                 </td>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("wall");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
@@ -386,7 +343,7 @@ function Home() {
                                     </select>
                                 </td>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("ins");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
@@ -395,7 +352,7 @@ function Home() {
                             </tr>
 
                             {
-                                curWall.info.insMat === "without_Insulation" ? <></>:
+                                curWall.info.insMat === "without_Insulation" ? <></> :
                                     <tr>
                                         <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                             <h1 className={"mx-2 overflow-clip"}>{t("ins_thickness")}:</h1>
@@ -416,7 +373,6 @@ function Home() {
                             }
 
 
-
                             </tbody>
                         </table>
 
@@ -431,7 +387,7 @@ function Home() {
                         {
                             wallIndex >= 0 ?
                                 <div>
-                                    <div className={"flex flex-wrqp overflow-x-auto "}>
+                                    <div className={"flex flex-wrap overflow-x-auto "}>
                                         {curWall.doors.map((door, index) => (
                                             <div key={index}
                                                  className={"relative m-2 p-2 h-1/4 bg-lightInfo dark:bg-darkInfo columns-3"}>
@@ -452,7 +408,7 @@ function Home() {
                             wallIndex >= 0 ?
                                 <div>
 
-                                    <div className={"flex flex-wrqp overflow-x-auto "}>
+                                    <div className={"flex flex-wrap overflow-x-auto "}>
                                         {curWall.windows.map((door, index) => (
                                             <div key={index}
                                                  className={"relative m-2 p-2 h-1/4 bg-lightInfo dark:bg-darkInfo columns-3"}>
@@ -469,7 +425,6 @@ function Home() {
                         }
 
 
-
                     </div>
 
                     <hr className={"bg-lightHR dark:bg-darkHR  mx-4"}/>
@@ -477,30 +432,29 @@ function Home() {
 
 
                 {
-                    room.walls.length !== 4?
-                        <div className={`flex flex-row-reverse`}>
+                    room.walls.length !== 4 ?
+                        <div className={`  flex flex-col items-end`}>
                             <AddWallButton onAddWall={addWall}/>
-                        </div>:
+                        </div> :
                         <Link to={"/NotWall"}
-                              className={`absolute bottom-0 right-0 bg-lightButton  m-2 px-4 py-3 text-xl md:text-2xl `}
-                              onClick={()=>{localStorage.setItem('redirectProps', JSON.stringify(room));}}>
+                              className={`flex flex-col items-center bg-lightButton mt-2 hover:bg-red-500 px-4 py-3 text-xl md:text-2xl `}
+                            //onClick={()=>{localStorage.setItem('redirectProps', JSON.stringify(room));}}
+                        >
                             Continue
                         </Link>
                 }
 
 
-
             </div>
 
 
-
             {wallsToRender.length > 0 ?
-                <div className={"max-full bg-lightModule dark:bg-darkModule relative"}>
+                <div className={" bg-lightModule dark:bg-darkModule relative overflow-y-scroll"}>
                     <br/>
                     <div className={" absolute inset-0 p-2 grid grid-rows-3 gap-2"}>
                         {wallsToRender.map((wall, index) => (
                             <div key={index}
-                                 className={"relative p-2 h-full bg-lightInfo dark:bg-darkInfo grid grid-cols-3 "}>
+                                 className={"relative p-2 h-full bg-lightInfo dark:bg-darkInfo grid grid-cols-3 overflow-y-scroll"}>
 
                                 <div>
                                     <p className={"text-2xl flex flex-wrap "}><GiStoneWall
@@ -515,7 +469,7 @@ function Home() {
                                         <br/>
                                         {t("matThick")}: {wall.info.matThick}
                                         {
-                                            wall.info.insMat === "without_Insulation"?<></>:
+                                            wall.info.insMat === "without_Insulation" ? <></> :
                                                 <>
                                                     <br/>
                                                     {t("material")}: {t(wall.info.insMat!)}
@@ -546,7 +500,7 @@ function Home() {
                                     setMoreInfo(wall.windows);
                                     setIsWindow(true);
                                 }} aria-disabled={true}>
-                                    <p className={`text-2xl flex flex-wrap ${wall.windows.length === 0 ? 'invisible' : ''} `}>
+                                    <p className={`text-2xl flex flex-wrap  ${wall.windows.length === 0 ? 'invisible' : ''} `}>
                                         <GiWindow className={"mr-2 m-1"}/>{room.walls[index].windows.length} {t("win")}
                                         <BsInfoCircle className={"m-1"}/></p>
                                 </button>

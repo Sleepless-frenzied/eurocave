@@ -1,6 +1,6 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, {createContext, ReactNode, useState} from 'react';
 
-export const floorMaterial =[
+export const floorMaterial = [
     {name: "expanded_polystyrene", coef: ""},
     {name: "extruded_polystyrene", coef: ""},
     {name: "polyurethane", coef: ""},
@@ -11,7 +11,7 @@ export const floorMaterial =[
 ];
 
 
-export const ceilingMaterial =[
+export const ceilingMaterial = [
     {name: "expanded_polystyrene", coef: ""},
     {name: "extruded_polystyrene", coef: ""},
     {name: "polyurethane", coef: ""},
@@ -70,11 +70,11 @@ export const vitrage=[
 
 
 export const desiredTemperature = [
-    { label: "12 C°" },
-    { label: "13 C°" },
-    { label: "14 C°" },
-    { label: "15 C°" },
-    { label: "16 C°" },
+    {label: "12 C°"},
+    {label: "13 C°"},
+    {label: "14 C°"},
+    {label: "15 C°"},
+    {label: "16 C°"},
 ];
 
 export type Room = {
@@ -88,7 +88,7 @@ export type Room = {
 export type Info = {
     height: number | undefined,
     length: number | undefined,
-    width: number| undefined;
+    width: number | undefined;
     thickness: number | undefined,
     mat: string | undefined
     matThick: number | undefined;
@@ -107,16 +107,15 @@ export type Floor = {
 export type Wall = {
     info: Info;
     windows: Window[];
-    doors :Doors[];
+    doors: Doors[];
 };
-export type Doors={
-    info:Info;
+export type Doors = {
+    info: Info;
 }
 
 export type Window = {
     info: Info;
 }
-
 
 
 /*
@@ -143,17 +142,50 @@ export type Vitrage = {
     coef: string;
 };
 
+const initialRoom: Room = {
+    walls: [],
+    floor: {
+        info: {
+            height: 10,
+            length: 10,
+            width: 0,
+            thickness: 0,
+            mat: "bA13_(gypsum_board)",
+            matThick: 10,
+            insMat: "without_Insulation",
+            insThick: 10,
+        },
+    },
+    ceiling: {
+        info: {
+            height: 10,
+            length: 10,
+            width: 0,
+            thickness: 0,
+            mat: "bA13_(gypsum_board)",
+            matThick: 10,
+            insMat: "without_Insulation",
+            insThick: 10,
+        },
+    },
+    tempExt: 10,
+    tempInt: 10,
+};
+
+
 type ContextType = {
+    room: Room;
+    setRoom: (update: (prevRoom: Room) => Room) => void;
     wallMaterial: WallMaterial[];
     addWallMaterial: (material: WallMaterial) => void;
     insMaterial: InsMaterial[];
     addInsMaterial: (material: InsMaterial) => void;
     vitrage: Vitrage[];
     addVitrage: (material: Vitrage) => void;
-    what:string;
+    what: string;
     setWhat: (value: string) => void;
-    openAddMatModal:boolean;
-    setAddMatModal:(value:boolean)=>void;
+    openAddMatModal: boolean;
+    setAddMatModal: (value: boolean) => void;
 };
 const Context = createContext<ContextType>({} as ContextType);
 
@@ -161,7 +193,10 @@ type ProviderProps = {
     children: ReactNode;
 };
 
-const Provider: React.FC<ProviderProps> = ({ children }) => {
+const Provider: React.FC<ProviderProps> = ({children}) => {
+    const [room, setRoom] = useState(initialRoom);
+
+
     const [wallMaterial, setWallMaterial] = useState<WallMaterial[]>([
         {name: "bA13_(gypsum_board)", coef: "0,416"},
         {name: "concrete", coef: "1,8"},
@@ -195,17 +230,17 @@ const Provider: React.FC<ProviderProps> = ({ children }) => {
     ]);
 
     const [vitrage, setVitrage] = useState<Vitrage[]>([
-        {name:"Simple vitrage",thickness:"1",coef:"0,78"},
-        {name:"VITRAGE 4 x 6 x 4 (K = 3.3)",thickness:"14",coef:"0,046"},
-        {name:"VITRAGE 4 x 8 x 4 (K = 3.1)",thickness:"16",coef:"0,049"},
-        {name:"VITRAGE 4 x 10 x 4 (K = 3)",thickness:"18",coef:"0,054"},
-        {name:"VITRAGE 4 x 12 x 4 (K = 2.9)",thickness:"20",coef:"0,058"},
-        {name:"VITRAGE 4 x 16 x 4 (K = 2.8)",thickness:"24",coef:"0,067"},
-        {name:"VITRAGE 6 x 20 x 6 (K = 1,1) ",thickness:"32",coef:"0,035"},
-        {name:"VITRAGE 6 x 12 x 6 Argon",thickness:"24",coef:"0,016"},
+        {name: "Simple vitrage", thickness: "1", coef: "0,78"},
+        {name: "VITRAGE 4 x 6 x 4 (K = 3.3)", thickness: "14", coef: "0,046"},
+        {name: "VITRAGE 4 x 8 x 4 (K = 3.1)", thickness: "16", coef: "0,049"},
+        {name: "VITRAGE 4 x 10 x 4 (K = 3)", thickness: "18", coef: "0,054"},
+        {name: "VITRAGE 4 x 12 x 4 (K = 2.9)", thickness: "20", coef: "0,058"},
+        {name: "VITRAGE 4 x 16 x 4 (K = 2.8)", thickness: "24", coef: "0,067"},
+        {name: "VITRAGE 6 x 20 x 6 (K = 1,1) ", thickness: "32", coef: "0,035"},
+        {name: "VITRAGE 6 x 12 x 6 Argon", thickness: "24", coef: "0,016"},
     ]);
 
-    const [what,setWhat]= useState("")
+    const [what, setWhat] = useState("")
 
 
     const [openAddMatModal, setAddMatModal] = useState(false);
@@ -227,6 +262,8 @@ const Provider: React.FC<ProviderProps> = ({ children }) => {
     return (
         <Context.Provider
             value={{
+                room,
+                setRoom,
                 wallMaterial,
                 addWallMaterial,
                 insMaterial,
@@ -246,4 +283,4 @@ const Provider: React.FC<ProviderProps> = ({ children }) => {
 
 const useContextProvider = () => React.useContext(Context);
 
-export { Provider, useContextProvider };
+export {Provider, useContextProvider};

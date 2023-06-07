@@ -1,6 +1,5 @@
 import React from 'react';
-import {Room, useContextProvider} from "../assets/Data";
-import {BiCommentEdit} from "react-icons/all";
+import {useContextProvider} from "../assets/Data";
 import {useTranslation} from "react-i18next";
 
 
@@ -8,7 +7,8 @@ function calculateTriangleArea(a: number, b: number, c: number): number {
     const s = (a + b + c) / 2; // semi-perimeter
     return Math.sqrt(s * (s - a) * (s - b) * (s - c)); // Heron's formula
 }
-function calculatePolygonSurfaceArea(sideLengths: number[], numPoints: number): number{
+
+function calculatePolygonSurfaceArea(sideLengths: number[], numPoints: number): number {
     let totalArea = 0;
     const numTriangles = sideLengths.length - 2;
 
@@ -32,12 +32,12 @@ function calculateRectangleArea(lengths: number[]): number {
     const length = Math.max(...lengths);
     const width = Math.min(...lengths);
 
-    const area = length /100 * width/100;
+    const area = length / 100 * width / 100;
     return area;
 }
 
 function getSurface(item: any) {
-    return item.info.length/100 * item.info.height/100;
+    return item.info.length / 100 * item.info.height / 100;
 }
 
 let Thickness = 0;
@@ -69,21 +69,17 @@ let finalSurface = 0;
 let finalLoss = 0;
 
 
-
-
-function useCalc(room:any) {
+function useCalc(room: any) {
 
 
     finalLoss = 0;
-
-
 
 
     const wallsToRender = room?.walls;
     //?.slice(0, -1);
 
     const context = useContextProvider();
-    const {insMaterial, wallMaterial, vitrage}= context;
+    const {insMaterial, wallMaterial, vitrage} = context;
 
 
     const getCoef = (Item: any, IsWindow: boolean = false): number => {
@@ -104,32 +100,32 @@ function useCalc(room:any) {
     let idx = 0;
     console.log(wallsToRender)
 
-    wallsToRender?.forEach((wall:any) => {
+    wallsToRender?.forEach((wall: any) => {
         wallSurface = getSurface(wall);
 
         wallCoef = getCoef(wall);
 
         globalCoef[0] = 1 / (1 / wallCoef + 1 / externalCoef + 1 / internalCoef)
 
-        console.log("wall surface"+idx+": " + wallSurface);
-        console.log("wall coef"+idx+": " + wallCoef);
-        console.log("global wall coef"+idx+": " + globalCoef[0]);
+        console.log("wall surface" + idx + ": " + wallSurface);
+        console.log("wall coef" + idx + ": " + wallCoef);
+        console.log("global wall coef" + idx + ": " + globalCoef[0]);
 
 
-        wall?.windows?.forEach((window:any) => {
+        wall?.windows?.forEach((window: any) => {
             const curWindowSurface = getSurface(window);
             windowSurface += curWindowSurface;
 
-            windowCoef = getCoef(window,true);
+            windowCoef = getCoef(window, true);
 
             globalCoef[1] = 1 / (1 / windowCoef + 1 / externalCoef + 1 / internalCoef);
-            console.log("global window coef"+ window.key + ": " + globalCoef[1]);
+            console.log("global window coef" + window.key + ": " + globalCoef[1]);
 
             finalLoss += globalCoef[1] * curWindowSurface;
 
             //console.log(finalLoss);
         })
-        wall?.doors?.forEach((door:any) => {
+        wall?.doors?.forEach((door: any) => {
             const curDoorSurface = getSurface(door);
             doorSurface += curDoorSurface;
 
@@ -147,47 +143,43 @@ function useCalc(room:any) {
         wallLoss = globalCoef[0] * finalSurface;
 
 
-
         finalLoss += wallLoss + windowLoss + doorLoss;
         //console.log(finalLoss);
 
-        idx ++;
+        idx++;
 
 
     });
 
 
-
-    const lengthArray: number[] = wallsToRender.map((wall:any) => wall.info?.length!);
+    const lengthArray: number[] = wallsToRender.map((wall: any) => wall.info?.length!);
 
     const roomSurface = calculateRectangleArea(lengthArray);
-    console.log("Room surface"+": " + roomSurface);
+    console.log("Room surface" + ": " + roomSurface);
     const floorCoef = getCoef(room.floor);
-    console.log("floor coef"+": " + floorCoef);
+    console.log("floor coef" + ": " + floorCoef);
     const floorGlobalCoef = 1 / (1 / floorCoef + 1 / externalCoef + 1 / internalCoef);
-    finalLoss+= floorGlobalCoef*roomSurface;
+    finalLoss += floorGlobalCoef * roomSurface;
 
     const ceilingCoef = getCoef(room.ceiling);
     const ceilingGlobalCoef = 1 / (1 / ceilingCoef + 1 / externalCoef + 1 / internalCoef);
 
 
-    finalLoss+= ceilingGlobalCoef * roomSurface;
+    finalLoss += ceilingGlobalCoef * roomSurface;
 
-    console.log("c"+": " + ceilingGlobalCoef);
-    console.log("room"+": " + roomSurface);
-    console.log("FinalLoss"+": " + finalLoss);
+    console.log("c" + ": " + ceilingGlobalCoef);
+    console.log("room" + ": " + roomSurface);
+    console.log("FinalLoss" + ": " + finalLoss);
 
 
+    const final = (finalLoss * (room.tempExt - room.tempInt)).toFixed(3);
 
-    const final = (finalLoss * (room.tempExt-room.tempInt)).toFixed(3);
-
-    console.log("FinalFinal"+": " + final);
+    console.log("FinalFinal" + ": " + final);
 
 
     return final;
 //room.tempExt-room.tempInt
 }
-
 
 
 export default function Result() {
@@ -201,11 +193,45 @@ export default function Result() {
 
     return (
 
-        <div className={"bg-light dark:bg-dark flex flex-col justify-center items-center h-full w-full p-6 text-justify "}>
-            <div className={"text-9xl text-red-500"}>
-                {useCalc(room)}
+        <div
+            className={"text-sm md:text-xl bg-light dark:bg-dark flex flex-col justify-center items-center h-full w-full p-6 text-justify "}>
+            <div className={" text-xl md:text-8xl text-red-500 border-red-500 border-2 px-5 py-2"}>
+                <p className={""}>
+                    {t("necessary")}
+                </p>
+                <p className={"flex justify-center items-center text-justify "}>
+                    {useCalc(room)}W
+                </p>
+
             </div>
-            <div className={"text-lightTxt text-xl "}>
+            <br/>
+            <div className={"flex justify-between text-lightTxt w-full px-3 gap-2 divide-x-2 divide-dark"}>
+                <p>
+                    {t("device")}
+                    <br/>
+                    INOA 25
+                    <br/>
+
+                    INOA 50
+                </p>
+                <p>
+                    {t("fridge")}
+                    <br/>
+                    600 Watts
+                    <br/>
+                    1200 Watts
+                </p>
+                <p className={""}>
+                    {t("resistance")}
+                    <br/>
+                    650 Watts
+                    <br/>
+                    650 Watts
+                </p>
+
+            </div>
+            <br/>
+            <div className={"text-lightTxt "}>
                 <p>{t("nota")}</p>
             </div>
         </div>

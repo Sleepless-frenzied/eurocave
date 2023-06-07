@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        jost: ['Jost', 'sans-serif'],
         argesta: ['Argesta', 'sans-serif'],
         Gamer: ['"sans"']
       },

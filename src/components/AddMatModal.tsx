@@ -1,5 +1,5 @@
-import { RxCross2 } from "react-icons/rx";
-import React, { useState } from "react";
+import {RxCross2} from "react-icons/rx";
+import React, {useState} from "react";
 import {useContextProvider, Vitrage} from "../assets/Data";
 import {useTranslation} from "react-i18next";
 
@@ -9,7 +9,7 @@ interface Material {
     thickness?: string; // Added optional property for thickness
 }
 
-export default function AddMatModal({ setAddMatModal }: { setAddMatModal: Function }) {
+export default function AddMatModal({setAddMatModal}: { setAddMatModal: Function }) {
 
     const {t} = useTranslation()
     const context = useContextProvider();
@@ -29,8 +29,8 @@ export default function AddMatModal({ setAddMatModal }: { setAddMatModal: Functi
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setNewMaterial((prevMaterial) => ({ ...prevMaterial, [name]: value }));
+        const {name, value} = event.target;
+        setNewMaterial((prevMaterial) => ({...prevMaterial, [name]: value}));
     };
 
     const addMaterial = () => {
@@ -59,15 +59,17 @@ export default function AddMatModal({ setAddMatModal }: { setAddMatModal: Functi
     };
 
     return (
-        <div className={" bg-lightModule bg-darkModule absolute inset-0 flex justify-center items-center z-20 m-auto h-1/2 w-5/6 xl:w-1/2 "}>
-            <div className="relative h-full w-full overflow-y-auto border-4 border-red-500 flex flex-col justify-center items-center  ">
+        <div
+            className={" bg-lightModule bg-darkModule absolute inset-0 flex justify-center items-center z-20 m-auto h-1/2 w-5/6 xl:w-1/2 "}>
+            <div
+                className="relative h-full w-full overflow-y-auto border-4 border-red-500 flex flex-col justify-center items-center  ">
                 <button
                     className={"absolute top-0 right-0 "}
                     onClick={() => {
                         setAddMatModal(false);
                     }}
                 >
-                    <RxCross2 className={"m-1"} />
+                    <RxCross2 className={"m-1"}/>
                 </button>
 
 
@@ -112,7 +114,6 @@ export default function AddMatModal({ setAddMatModal }: { setAddMatModal: Functi
                     </td>
 
 
-
                     {what === "win" && (
                         <>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
@@ -137,7 +138,8 @@ export default function AddMatModal({ setAddMatModal }: { setAddMatModal: Functi
 
                     </tbody>
                 </table>
-                <button className={"absolute bottom-0 right-0 bg-lightButton  m-2 px-5 py-2 text-xl md:text-2xl "} onClick={addMaterial}>{t("add")}</button>
+                <button className={"absolute bottom-0 right-0 bg-lightButton  m-2 px-5 py-2 text-xl md:text-2xl "}
+                        onClick={addMaterial}>{t("add")}</button>
             </div>
         </div>
     );

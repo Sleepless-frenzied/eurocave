@@ -4,11 +4,11 @@ import {Room, useContextProvider} from "../assets/Data";
 import {GiCheckMark, GiDoorway} from "react-icons/gi";
 
 
-function DoorsModal({setRoom,curWall,wallIndex,setDoorsModal}:any) {
-    const { t} = useTranslation();
+function DoorsModal({setRoom, curWall, wallIndex, setDoorsModal}: any) {
+    const {t} = useTranslation();
 
     const context = useContextProvider();
-    const {insMaterial, wallMaterial, vitrage,setWhat,setAddMatModal, openAddMatModal}= context;
+    const {insMaterial, wallMaterial, vitrage, setWhat, setAddMatModal, openAddMatModal} = context;
 
 
     const handleDoorInfoChange = (
@@ -17,8 +17,8 @@ function DoorsModal({setRoom,curWall,wallIndex,setDoorsModal}:any) {
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         wallIndex -= 1;
-        const { name, value } = e.target;
-        setRoom((prevRoom:Room) => {
+        const {name, value} = e.target;
+        setRoom((prevRoom: Room) => {
             const walls = [...prevRoom.walls];
             const doors = [...walls[wallIndex].doors];
             doors[doorIndex] = {
@@ -40,9 +40,9 @@ function DoorsModal({setRoom,curWall,wallIndex,setDoorsModal}:any) {
     };
 
 
-
-    return(
-        <div className={"overflow-y-auto bg-lightModule dark:bg-darkModule absolute inset-0 flex justify-center items-center z-10 m-auto h-full w-full "}>
+    return (
+        <div
+            className={"overflow-y-auto bg-lightModule dark:bg-darkModule absolute inset-0 flex justify-center items-center z-10 m-auto h-full w-full "}>
             <div className="relative h-full w-full ">
                 <button
                     className={"absolute bottom-0 right-0 bg-lightButton dark:bg-darkButton px-6 py-3 m-3 flex flex-wrap"}
@@ -119,7 +119,7 @@ function DoorsModal({setRoom,curWall,wallIndex,setDoorsModal}:any) {
                                 </select>
                             </td>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("wall");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
@@ -164,14 +164,14 @@ function DoorsModal({setRoom,curWall,wallIndex,setDoorsModal}:any) {
                                 </select>
                             </td>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                        <span onClick={()=>{
+                                        <span onClick={() => {
                                             setWhat("ins");
                                             setAddMatModal(true);
                                         }} className={"px-2 flex justify-center"}>+</span>
                             </td>
                         </tr>
 
-                        {curWall.doors[curWall.doors.length - 1].info.insMat ==="without_Insulation"?<></>:
+                        {curWall.doors[curWall.doors.length - 1].info.insMat === "without_Insulation" ? <></> :
                             <tr>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
                                     <h1 className={"mx-2 overflow-clip"}>{t("ins_thickness")}:</h1>
