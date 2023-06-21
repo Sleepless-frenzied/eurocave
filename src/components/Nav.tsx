@@ -34,13 +34,15 @@ const Nav = () => {
 
                     </Link>
 
+
+                    <div className=' text-light  text-3xl absolute right-8 '>
+                        <ButtonLang className={""}/>
+                        <InstallPWA/>
+                    </div>
                 </div>
 
 
-                <div className=' text-light  text-3xl absolute right-8 '>
-                    <ButtonLang className={""}/>
-                    <InstallPWA/>
-                </div>
+
 
                 {/*
                 <div onClick={()=>setOpen(!open)} className=' text-light  text-3xl absolute right-8 top-3.5 cursor-pointer md:hidden'>

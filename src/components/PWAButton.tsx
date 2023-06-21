@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {MdInstallMobile} from "react-icons/md";
 
 interface BeforeInstallPromptEvent extends Event {
     readonly platforms: string[];
@@ -43,13 +44,13 @@ const InstallPWA: React.FC = () => {
 
     return (
         <button
-            className="link-button text-white"
+            className="link-button  text-white"
             id="setup_button"
             aria-label="Install app"
             title="Install app"
             onClick={onClick}
         >
-            Install
+            <MdInstallMobile/>
         </button>
     );
 };

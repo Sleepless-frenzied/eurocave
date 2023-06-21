@@ -25,7 +25,7 @@ export default function NotWall({setNotWall}: any) {
                 ...prevRoom.floor,
                 info: {
                     ...prevRoom.floor.info,
-                    [name]: name === 'mat' || name === 'insMat' ? value : Number(value),
+                    [name]: name === 'mat' || name === 'insMat' ? value : Number(value) || "",
                 },
             },
         }));
@@ -40,7 +40,7 @@ export default function NotWall({setNotWall}: any) {
                 ...prevRoom.ceiling,
                 info: {
                     ...prevRoom.ceiling.info,
-                    [name]: name === 'mat' || name === 'insMat' ? value : Number(value),
+                    [name]: name === 'mat' || name === 'insMat' ? value : Number(value) || "",
                 },
             },
         }));
@@ -51,7 +51,7 @@ export default function NotWall({setNotWall}: any) {
         const {name, value} = e.target;
         setRoom((prevRoom: Room) => ({
             ...prevRoom,
-            [name]: Number(value),
+            [name]: Number(value) || "",
         }));
     };
 

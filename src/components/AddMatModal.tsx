@@ -126,7 +126,7 @@ export default function AddMatModal({setAddMatModal}: { setAddMatModal: Function
                                     name="coef"
                                     value={newMaterial.thickness}
                                     onChange={handleInputChange}
-                                    placeholder="Enter coef"
+                                    placeholder="Enter thickness"
                                 />
                             </td>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>

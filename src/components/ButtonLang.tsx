@@ -20,7 +20,7 @@ const ButtonLang = (props: any) => {
                 className='mx-3 rounded-full text-white font-[Poppins] py-1 px-1 rounded duration-500'>
             {props.children}
             <img src={flag} alt="change language"
-                 className="w-14 h-10 p-0 mt-3 "/>
+                 className="w-10 h-7 md:w-14 md:h-10 p-0 mt-2 "/>
         </button>
     )
 }

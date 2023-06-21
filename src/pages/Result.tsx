@@ -32,12 +32,12 @@ function calculateRectangleArea(lengths: number[]): number {
     const length = Math.max(...lengths);
     const width = Math.min(...lengths);
 
-    const area = length / 100 * width / 100;
+    const area = length  * width ;
     return area;
 }
 
 function getSurface(item: any) {
-    return item.info.length / 100 * item.info.height / 100;
+    return item.info.length  * item.info.height;
 }
 
 let Thickness = 0;
@@ -72,7 +72,9 @@ let finalLoss = 0;
 function useCalc(room: any) {
 
 
-    finalLoss = 0;
+    finalLoss = 0
+    windowSurface=0
+    doorSurface=0
 
 
     const wallsToRender = room?.walls;
@@ -83,9 +85,17 @@ function useCalc(room: any) {
 
 
     const getCoef = (Item: any, IsWindow: boolean = false): number => {
+        InsThickness=0;
+        InsConductivity =0;
+
         if (IsWindow) {
-            Thickness = parseFloat(vitrage.find((material: any) => material.name === Item.info.mat)!.thickness.replace(',', '.'));
+
+            Thickness = Item.info.matThick;
+
             Conductivity = parseFloat(vitrage.find((material: any) => material.name === Item.info.mat)!.coef.replace(',', '.'));
+
+            Coef = 1 / ((1 / (Conductivity / Thickness * 1000)));
+            return Coef;
         } else {
             Thickness = Item.info.matThick!;
             Conductivity = parseFloat(wallMaterial.find((material: any) => material.name === Item.info.mat)!.coef.replace(',', '.'));
@@ -117,6 +127,7 @@ function useCalc(room: any) {
             windowSurface += curWindowSurface;
 
             windowCoef = getCoef(window, true);
+            console.log(windowCoef)
 
             globalCoef[1] = 1 / (1 / windowCoef + 1 / externalCoef + 1 / internalCoef);
             console.log("global window coef" + window.key + ": " + globalCoef[1]);
@@ -159,6 +170,7 @@ function useCalc(room: any) {
     const floorCoef = getCoef(room.floor);
     console.log("floor coef" + ": " + floorCoef);
     const floorGlobalCoef = 1 / (1 / floorCoef + 1 / externalCoef + 1 / internalCoef);
+    console.log(floorGlobalCoef * roomSurface + "zerzerez")
     finalLoss += floorGlobalCoef * roomSurface;
 
     const ceilingCoef = getCoef(room.ceiling);
@@ -185,8 +197,6 @@ function useCalc(room: any) {
 export default function Result() {
     const redirectPropsString = localStorage.getItem('redirectProps');
     const room = redirectPropsString ? JSON.parse(redirectPropsString) : null;
-    //console.log("try: "+calculatePolygonSurfaceArea([10, 10, 10, 10, 10],100))
-    //console.log("try: "+calculatePolygonSurfaceArea([4, 5, 5, 4, 8],100))
 
 
     const {t} = useTranslation();

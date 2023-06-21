@@ -16,21 +16,42 @@ function WinModal({setRoom, curWall, wallIndex, setWinModal}: any) {
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         wallIndex -= 1;
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setRoom((prevRoom: Room) => {
             const walls = [...prevRoom.walls];
             const windows = [...walls[wallIndex].windows];
-            windows[windowIndex] = {
-                ...windows[windowIndex],
-                info: {
-                    ...windows[windowIndex].info,
-                    [name]: name === 'mat' || name === 'insMat' ? value : Number(value),
-                },
-            };
+            const windowToUpdate = windows[windowIndex];
+
+            // Check if the material property is modified
+            if (name === 'mat' || name === 'insMat') {
+                // Find the selected material and assign matThick
+                const selectedMaterial = parseFloat(vitrage.find((material: any) => material.name === value)!.thickness.replace(',', '.'));
+                const matThick = selectedMaterial ;
+                // Update the window info with the selected material and matThick
+                windows[windowIndex] = {
+                    ...windowToUpdate,
+                    info: {
+                        ...windowToUpdate.info,
+                        [name]: value,
+                        matThick: matThick,
+                    },
+                };
+            } else {
+                // Update the window info without changing the matThick property
+                windows[windowIndex] = {
+                    ...windowToUpdate,
+                    info: {
+                        ...windowToUpdate.info,
+                        [name]: value,
+                    },
+                };
+            }
+
             walls[wallIndex] = {
                 ...walls[wallIndex],
                 windows,
             };
+
             return {
                 ...prevRoom,
                 walls,
@@ -39,10 +60,11 @@ function WinModal({setRoom, curWall, wallIndex, setWinModal}: any) {
     };
 
 
+
     return (
         <div
             className={" overflow-y-auto bg-lightModule dark:bg-darkModule absolute inset-0 flex justify-center items-center z-10 m-auto h-full w-full "}>
-            <div className="relative h-full w-full ">
+            <div className="flex flex-col relative  justify-center relative h-full w-full ">
                 <button
                     className={"absolute bottom-0 right-0 bg-lightButton dark:bg-darkButton px-6 py-3 m-3 flex flex-wrap"}
                     onClick={() => {
@@ -77,7 +99,7 @@ function WinModal({setRoom, curWall, wallIndex, setWinModal}: any) {
                                 />
                             </td>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                <span className={"px-2 flex justify-center"}>cm</span>
+                                <span className={"px-2 flex justify-center"}>m</span>
                             </td>
                         </tr>
 
@@ -95,7 +117,7 @@ function WinModal({setRoom, curWall, wallIndex, setWinModal}: any) {
                                 />
                             </td>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                <span className={"px-2 flex justify-center"}>cm</span>
+                                <span className={"px-2 flex justify-center"}>m</span>
                             </td>
                         </tr>
 

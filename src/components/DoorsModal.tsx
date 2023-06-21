@@ -25,7 +25,7 @@ function DoorsModal({setRoom, curWall, wallIndex, setDoorsModal}: any) {
                 ...doors[doorIndex],
                 info: {
                     ...doors[doorIndex].info,
-                    [name]: name === 'mat' || name === 'insMat' ? value : Number(value),
+                    [name]: name === 'mat' || name === 'insMat' ? value : Number(value) || "",
                 },
             };
             walls[wallIndex] = {
@@ -43,7 +43,7 @@ function DoorsModal({setRoom, curWall, wallIndex, setDoorsModal}: any) {
     return (
         <div
             className={"overflow-y-auto bg-lightModule dark:bg-darkModule absolute inset-0 flex justify-center items-center z-10 m-auto h-full w-full "}>
-            <div className="relative h-full w-full ">
+            <div className="flex flex-col relative  justify-center relative h-full w-full ">
                 <button
                     className={"absolute bottom-0 right-0 bg-lightButton dark:bg-darkButton px-6 py-3 m-3 flex flex-wrap"}
                     onClick={() => {
@@ -77,7 +77,7 @@ function DoorsModal({setRoom, curWall, wallIndex, setDoorsModal}: any) {
                                 />
                             </td>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                <span className={"px-2 flex justify-center"}>cm</span>
+                                <span className={"px-2 flex justify-center"}>m</span>
                             </td>
                         </tr>
 
@@ -96,7 +96,7 @@ function DoorsModal({setRoom, curWall, wallIndex, setDoorsModal}: any) {
                                 />
                             </td>
                             <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                <span className={"px-2 flex justify-center"}>cm</span>
+                                <span className={"px-2 flex justify-center"}>m</span>
                             </td>
                         </tr>
 

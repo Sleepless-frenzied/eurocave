@@ -79,7 +79,7 @@ function Home() {
                 ...walls[wallIndex],
                 info: {
                     ...walls[wallIndex].info,
-                    [name]: name === 'mat' || name === 'insMat' ? value : Number(value),
+                    [name]: name === 'mat' || name === 'insMat' ? value : (Number(value) || ""),
                 },
             };
             return {
@@ -128,7 +128,7 @@ function Home() {
                     length: 10,
                     width: 0,
                     thickness: 0,
-                    mat: "ebA13_(gypsum_board)",
+                    mat: "bA13_(gypsum_board)",
                     matThick: 10,
                     insMat: "without_Insulation",
                     insThick: 10,
@@ -256,7 +256,7 @@ function Home() {
                                     />
                                 </td>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <span className={"px-2 flex justify-center"}>cm</span>
+                                    <span className={"px-2 flex justify-center"}>m</span>
                                 </td>
                             </tr>
 
@@ -274,7 +274,7 @@ function Home() {
                                     />
                                 </td>
                                 <td className={"border-2 border-lightDivi dark:border-darkDivi"}>
-                                    <span className={"px-2 flex justify-center"}>cm</span>
+                                    <span className={"px-2 flex justify-center"}>m</span>
                                 </td>
                             </tr>
 
@@ -414,7 +414,7 @@ function Home() {
                                                  className={"relative m-2 p-2 h-1/4 bg-lightInfo dark:bg-darkInfo columns-3"}>
                                                 <GiWindow className={"m-1 dark:invert-0"}/>
                                                 {index + 1}
-                                                <RxCross1 onClick={() => deleteDoor(index)}
+                                                <RxCross1 onClick={() => deleteWin(index)}
                                                           className={"absolute top-0 right-0 mr-2 mt-2"}/>
                                             </div>
                                         ))}
@@ -454,7 +454,7 @@ function Home() {
                     <div className={" absolute inset-0 p-2 grid grid-rows-3 gap-2"}>
                         {wallsToRender.map((wall, index) => (
                             <div key={index}
-                                 className={"relative p-2 h-full bg-lightInfo dark:bg-darkInfo grid grid-cols-3 overflow-y-scroll"}>
+                                 className={"relative p-2 h-full bg-lightInfo dark:bg-darkInfo grid grid-cols-3 overflow-y-auto"}>
 
                                 <div>
                                     <p className={"text-2xl flex flex-wrap "}><GiStoneWall
@@ -467,7 +467,7 @@ function Home() {
                                         <br/>
                                         {t("material")}: {t(wall.info.mat!)}
                                         <br/>
-                                        {t("matThick")}: {wall.info.matThick}
+                                        {t("mat_thickness")}: {wall.info.matThick}
                                         {
                                             wall.info.insMat === "without_Insulation" ? <></> :
                                                 <>
@@ -483,9 +483,10 @@ function Home() {
 
                                 </div>
                                 <button disabled={wall.doors.length === 0} onClick={() => {
-                                    setModal(true);
-                                    setMoreInfo(wall.doors);
                                     setIsWindow(false);
+                                    console.log(isWindow);
+                                    setMoreInfo(wall.doors);
+                                    setModal(true);
                                 }}>
                                     <p className={`text-2xl flex flex-wrap  ${wall.doors.length === 0 ? 'invisible' : ''} `}>
                                         <GiDoorway
@@ -496,16 +497,19 @@ function Home() {
 
 
                                 <button disabled={wall.windows.length === 0} onClick={() => {
-                                    setModal(true);
-                                    setMoreInfo(wall.windows);
                                     setIsWindow(true);
+                                    setMoreInfo(wall.windows);
+                                    setModal(true);
                                 }} aria-disabled={true}>
                                     <p className={`text-2xl flex flex-wrap  ${wall.windows.length === 0 ? 'invisible' : ''} `}>
                                         <GiWindow className={"mr-2 m-1"}/>{room.walls[index].windows.length} {t("win")}
                                         <BsInfoCircle className={"m-1"}/></p>
                                 </button>
 
-                                <RxCross1 onClick={() => deleteWall(index)}
+                                <RxCross1 onClick={() => {
+                                    deleteWall(index);
+
+                                }}
                                           className={"absolute top-0 right-0 mr-2 mt-2"}/>
                             </div>
                         ))}
